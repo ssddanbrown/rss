@@ -9,7 +9,7 @@ class RssConfig
      * The configured feeds.
      * Array keys are the feed URLs and values are arrays of tags as strings.
      * Tag strings include their '#' prefix.
-     * @var array<string, string[]>
+     * @var array<string, array{name: string, tags: string[]}>
      */
     protected $feeds = [];
 
@@ -25,16 +25,19 @@ class RssConfig
     /**
      * Add a new feed to the config.
      */
-    public function addFeedUrl(string $feed, array $tags = []): void
+    public function addFeed(string $feed, string $name, array $tags = []): void
     {
-        $this->feeds[$feed] = $tags;
+        $this->feeds[$feed] = [
+            'name' => $name,
+            'tags' => $tags,
+        ];
     }
 
     /**
      * Remove a feed from the config.
      * Returns a boolean indicating if the feed existed.
      */
-    public function removeFeedUrl(string $feed): bool
+    public function removeFeed(string $feed): bool
     {
         $exists = isset($this->feeds[$feed]);
 
@@ -51,7 +54,15 @@ class RssConfig
      */
     public function getTags(string $feed): array
     {
-        return $this->feeds[$feed] ?? [];
+        return $this->feeds[$feed]['tags'] ?? [];
+    }
+
+    /**
+     * Get the name for the given feed.
+     */
+    public function getName(string $feed): string
+    {
+        return $this->feeds[$feed]['name'] ?? '';
     }
 
     /**
@@ -61,11 +72,14 @@ class RssConfig
     {
         $lines = [];
 
-        foreach ($this->feeds as $feed => $tags) {
-            $line = $feed;
+        foreach ($this->feeds as $feed => $details) {
+            $line = "{$feed} {$details['name']}";
+            $tags = $details['tags'];
+
             foreach ($tags as $tag) {
                 $line .= " {$tag}";
             }
+
             $lines[] = $line;
         }
 
@@ -81,16 +95,18 @@ class RssConfig
 
         foreach ($lines as $line) {
             $line = trim($line);
-            if (empty($line) || $line[0] === '#') {
+            $parts = explode(' ', $line);
+
+            if (empty($line) || str_starts_with($line, '#') || count($parts) < 2) {
                 continue;
             }
 
-            $parts = explode(' ', $line);
             $url = $parts[0];
-            $tags = array_filter(array_slice($parts, 1), fn($str) => str_starts_with($str, '#'));
+            $name = $parts[1];
+            $tags = array_filter(array_slice($parts, 2), fn($str) => str_starts_with($str, '#'));
 
             if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
-                $this->addFeedUrl($url, $tags);
+                $this->addFeed($url, $name, $tags);
             }
         }
     }

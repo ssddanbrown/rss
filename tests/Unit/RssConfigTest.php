@@ -11,8 +11,8 @@ class RssConfigTest extends TestCase
     public function test_get_feed_urls()
     {
         $config = new RssConfig();
-        $config->addFeedUrl('https://example.com');
-        $config->addFeedUrl('https://example-b.com/cats?test=abc#okay');
+        $config->addFeed('https://example.com', 'example a');
+        $config->addFeed('https://example-b.com/cats?test=abc#okay', 'example b');
 
         $urls = $config->getFeedUrls();
         $this->assertCount(2, $urls);
@@ -23,11 +23,11 @@ class RssConfigTest extends TestCase
     public function test_remove_feed_url()
     {
         $config = new RssConfig();
-        $config->addFeedUrl('https://example.com');
-        $config->addFeedUrl('https://example-B.com/cats?test=abc#okay');
+        $config->addFeed('https://example.com', 'a');
+        $config->addFeed('https://example-B.com/cats?test=abc#okay', 'b');
 
-        $existingRemoved = $config->removeFeedUrl('https://example-B.com/cats?test=abc#okay');
-        $nonExistingRemoved = $config->removeFeedUrl('https://example-c.com');
+        $existingRemoved = $config->removeFeed('https://example-B.com/cats?test=abc#okay');
+        $nonExistingRemoved = $config->removeFeed('https://example-c.com');
 
         $this->assertTrue($existingRemoved);
         $this->assertFalse($nonExistingRemoved);
@@ -37,10 +37,10 @@ class RssConfigTest extends TestCase
     public function test_to_string()
     {
         $config = new RssConfig();
-        $config->addFeedUrl('https://example.com', ['#cat', '#dog']);
-        $config->addFeedUrl('https://example-B.com/cats?test=abc#okay');
+        $config->addFeed('https://example.com', 'a', ['#cat', '#dog']);
+        $config->addFeed('https://example-B.com/cats?test=abc#okay', 'b');
 
-        $expected = "https://example.com #cat #dog\nhttps://example-B.com/cats?test=abc#okay";
+        $expected = "https://example.com a #cat #dog\nhttps://example-B.com/cats?test=abc#okay b";
         $this->assertEquals($expected, $config->toString());
     }
 
@@ -48,57 +48,65 @@ class RssConfigTest extends TestCase
     {
         $config = new RssConfig();
         $config->parseFromString("
-https://example-B.com/cats?test=abc#okay
-https://example.com #dog #cat
+https://example-B.com/cats?test=abc#okay a
+https://example.com b #dog #cat
 # A comment
+https://example-C.com/cats?test=abc#okay
 
-http://beans.com/feed.xml#food #cooking
+http://beans.com/feed.xml#food d #cooking
         ");
 
         $this->assertCount(3, $config->getFeedUrls());
         $this->assertCount(0, $config->getTags('https://example-B.com/cats?test=abc#okay'));
         $this->assertEquals(['#dog', '#cat'], $config->getTags('https://example.com'));
         $this->assertEquals(['#cooking'], $config->getTags('http://beans.com/feed.xml#food'));
+        $this->assertEquals('a', $config->getName('https://example-B.com/cats?test=abc#okay'));
+        $this->assertEquals('b', $config->getName('https://example.com'));
+        $this->assertEquals('d', $config->getName('http://beans.com/feed.xml#food'));
     }
 
 
     public function test_encode_for_url_without_compression()
     {
         $config = new RssConfig();
-        $config->addFeedUrl('https://a.com', ['#a', '#b']);
+        $config->addFeed('https://a.com', 'a', ['#a', '#b']);
 
-        $expected = 'thttps%3A%2F%2Fa.com+%23a+%23b';
+        $expected = 'thttps%3A%2F%2Fa.com+a+%23a+%23b';
         $this->assertEquals($expected, $config->encodeForUrl());
     }
 
     public function test_encode_for_url_with_compression()
     {
         $config = new RssConfig();
-        $config->addFeedUrl('https://a.com', ['#a', '#b']);
-        $config->addFeedUrl('https://b.com', ['#a', '#b']);
+        $config->addFeed('https://a.com', 'a', ['#a', '#b']);
+        $config->addFeed('https://b.com', 'b', ['#a', '#b']);
 
-        $expected = 'ceJzLKCkpKLbS10/US87PVVBOVFBO4sqAiiUhxAD4igvQ';
+        $expected = 'ceJzLKCkpKLbS10/US87PVUhUUAaiJK4MqGgSWDQJIgoAKUYM0w==';
         $this->assertEquals($expected, $config->encodeForUrl());
     }
 
     public function test_decode_from_url_without_compression()
     {
         $config = new RssConfig();
-        $config->decodeFromUrl('thttps%3A%2F%2Fa.com+%23a+%23b%0Ahttps%3A%2F%2Fb.com+%23a+%23b');
+        $config->decodeFromUrl('thttps%3A%2F%2Fa.com+a+%23a+%23b%0Ahttps%3A%2F%2Fb.com+b+%23a+%23b');
 
         $this->assertCount(2, $config->getFeedUrls());
         $this->assertEquals(['#a', '#b'], $config->getTags('https://a.com'));
         $this->assertEquals(['#a', '#b'], $config->getTags('https://b.com'));
+        $this->assertEquals('a', $config->getName('https://a.com'));
+        $this->assertEquals('b', $config->getName('https://b.com'));
     }
 
     public function test_decode_from_url_with_compression()
     {
         $config = new RssConfig();
-        $config->decodeFromUrl('ceJzLKCkpKLbS10/US87PVVBOVFBO4sqAiiUhxAD4igvQ');
+        $config->decodeFromUrl('ceJzLKCkpKLbS10/US87PVUhUUAaiJK4MqGgSWDQJIgoAKUYM0w==');
 
         $this->assertCount(2, $config->getFeedUrls());
         $this->assertEquals(['#a', '#b'], $config->getTags('https://a.com'));
         $this->assertEquals(['#a', '#b'], $config->getTags('https://b.com'));
+        $this->assertEquals('a', $config->getName('https://a.com'));
+        $this->assertEquals('b', $config->getName('https://b.com'));
     }
 
     public function test_decode_from_url_with_empty_input()
