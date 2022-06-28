@@ -46,6 +46,15 @@ class RssConfig
     }
 
     /**
+     * Get the tags for the given feed.
+     * @return string[]
+     */
+    public function getTags(string $feed): array
+    {
+        return $this->feeds[$feed] ?? [];
+    }
+
+    /**
      * Get the configuration as a string.
      */
     public function toString(): string
@@ -64,9 +73,9 @@ class RssConfig
     }
 
     /**
-     * Decode a config from the given string.
+     * Parse out RSS feeds from the given string.
      */
-    public function decodeFromString(string $configString): void
+    public function parseFromString(string $configString): void
     {
         $lines = explode("\n", $configString);
 
@@ -124,7 +133,7 @@ class RssConfig
             $configStr = gzuncompress(base64_decode(substr($urlConfigString, 1)));
         }
 
-        $this->decodeFromString($configStr);
+        $this->parseFromString($configStr);
     }
 
 }
