@@ -7,6 +7,7 @@ use App\Models\Feed;
 use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class RefreshFeedJobTest extends TestCase
@@ -15,7 +16,10 @@ class RefreshFeedJobTest extends TestCase
 
     public function test_it_stores_posts_for_the_given_feed()
     {
-        $feed = Feed::factory()->create(['url' => 'https://example.com/feed.xml']);
+        $feed = Feed::factory()->create([
+            'url' => 'https://example.com/feed.xml',
+            'lasted_fetched_at' => time() - 50000,
+        ]);
         $job = new RefreshFeedJob($feed);
         Http::fake([
             'example.com/*' => Http::response(<<<END
@@ -42,6 +46,7 @@ END)
         /** @var Post[] $posts */
         $posts = $feed->posts()->get();
         $this->assertCount(1, $posts);
+        $this->assertGreaterThan(time() - 10, $feed->refresh()->lasted_fetched_at);
 
         $this->assertDatabaseHas('posts', [
             'feed_id' => $feed->id,
@@ -50,6 +55,23 @@ END)
             'description' => 'A little description',
             'published_at' => 1656068400,
         ]);
+    }
+
+    public function test_job_is_unique_per_feed()
+    {
+        $feedA = Feed::factory()->create(['url' => 'https://example.com/feed.xml']);
+        $feedB = Feed::factory()->create(['url' => 'https://example-b.com/feed.xml']);
+
+        Queue::fake();
+
+        dispatch(new RefreshFeedJob($feedA));
+        dispatch(new RefreshFeedJob($feedA));
+        dispatch(new RefreshFeedJob($feedA));
+        dispatch(new RefreshFeedJob($feedB));
+        dispatch(new RefreshFeedJob($feedB));
+
+        Queue::assertPushed(RefreshFeedJob::class, 2);
+
     }
 
 }
