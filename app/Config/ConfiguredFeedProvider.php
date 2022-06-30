@@ -45,7 +45,8 @@ class ConfiguredFeedProvider
             if (!$feed) {
                 $feed = (new Feed())->forceCreate([
                     'url' => $feedUrl,
-                    'lasted_fetched_at' => 0,
+                    'last_fetched_at' => 0,
+                    'last_accessed_at' => 0,
                 ]);
             }
 
@@ -62,8 +63,18 @@ class ConfiguredFeedProvider
         return $configuredFeeds;
     }
 
+    protected function updateLastAccessedForFeeds(array $feeds)
+    {
+        $ids = array_map(fn(ConfiguredFeed $feed) => $feed->feed->id, $feeds);
+
+        Feed::query()->whereIn('id', $ids)->update([
+            'last_accessed_at' => now()
+        ]);
+    }
+
     public function getAll()
     {
+        $this->updateLastAccessedForFeeds($this->feeds);
         return new ConfiguredFeedList($this->feeds);
     }
 
@@ -71,6 +82,7 @@ class ConfiguredFeedProvider
     {
         foreach ($this->feeds as $feed) {
             if ($feed->url === $feedUrl) {
+                $this->updateLastAccessedForFeeds([$feed]);
                 return $feed;
             }
         }
@@ -84,6 +96,7 @@ class ConfiguredFeedProvider
             return in_array($tag, $feed->tags);
         });
 
+        $this->updateLastAccessedForFeeds($feeds);
         return new ConfiguredFeedList($feeds);
     }
 }

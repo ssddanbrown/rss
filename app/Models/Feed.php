@@ -10,7 +10,7 @@ class Feed extends Model
 {
     use HasFactory;
 
-    protected $hidden = ['id', 'created_at', 'updated_at'];
+    protected $hidden = ['id', 'created_at', 'updated_at', 'last_accessed_at'];
 
     public function posts(): HasMany
     {

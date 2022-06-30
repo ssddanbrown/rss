@@ -19,6 +19,7 @@ class FeedFactory extends Factory
         return [
             'url' => $this->faker->url,
             'lasted_fetched_at' => now()->subHours(random_int(0, 100))->unix(),
+            'last_accessed_at' => time(),
         ];
     }
 }

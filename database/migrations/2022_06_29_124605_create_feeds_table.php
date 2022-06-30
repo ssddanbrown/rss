@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('feeds', function (Blueprint $table) {
             $table->id();
             $table->string('url', 250)->unique();
-            $table->timestamp('lasted_fetched_at')->index();
+            $table->timestamp('last_fetched_at')->index();
+            $table->timestamp('last_accessed_at')->index();
             $table->timestamps();
         });
     }

@@ -45,7 +45,7 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
             );
         }
 
-        $this->feed->lasted_fetched_at = time();
+        $this->feed->last_fetched_at = time();
         $this->feed->save();
     }
 

@@ -2,10 +2,7 @@
 
 - Testing coverage
 - Tag filtering
-- Feed access tracking
-- Feed reload command
-   - Active feeds only by default
-   - Option to reload all outdated
+- Feed filtering
 - Docker setup
 - GH sponsors info
 
