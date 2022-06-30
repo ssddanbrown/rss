@@ -1,7 +1,13 @@
-### Next Steps
+### TODO
 
-ConfigLoader -> for the logic of loading the logic and creating relavent feeds
-depending on config/session.
+- Testing coverage
+- Tag filtering
+- Feed access tracking
+- Feed reload command
+   - Active feeds only by default
+   - Option to reload all outdated
+- Docker setup
+- GH sponsors info
 
 ### Setup
 

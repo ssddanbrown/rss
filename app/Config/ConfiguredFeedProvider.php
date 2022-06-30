@@ -67,6 +67,17 @@ class ConfiguredFeedProvider
         return new ConfiguredFeedList($this->feeds);
     }
 
+    public function get(string $feedUrl): ?ConfiguredFeed
+    {
+        foreach ($this->feeds as $feed) {
+            if ($feed->url === $feedUrl) {
+                return $feed;
+            }
+        }
+
+        return null;
+    }
+
     public function getForTag(string $tag)
     {
         $feeds = array_filter($this->feeds, function (ConfiguredFeed $feed) use ($tag) {

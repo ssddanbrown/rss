@@ -2,6 +2,7 @@
 
 namespace App\Config;
 
+use App\Jobs\RefreshFeedJob;
 use App\Models\Feed;
 use JsonSerializable;
 
@@ -23,6 +24,20 @@ class ConfiguredFeed implements JsonSerializable
             'url' => $this->url,
             'tags' => $this->tags,
             'reloading' => $this->reloading,
+            'outdated' => $this->isOutdated(),
         ];
+    }
+
+    public function isOutdated(): bool
+    {
+        $expiry = time() - 3600;
+        return $this->feed->lasted_fetched_at <= $expiry;
+    }
+
+    public function startReloading(): void
+    {
+        $refreshJob = new RefreshFeedJob($this->feed);
+        dispatch($refreshJob);
+        $this->reloading = true;
     }
 }

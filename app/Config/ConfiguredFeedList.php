@@ -37,13 +37,11 @@ class ConfiguredFeedList implements IteratorAggregate, JsonSerializable
 
     public function reloadOutdatedFeeds(): int
     {
-        $expiry = time() - 3600;
         $refreshCount = 0;
 
         foreach ($this->feeds as $feed) {
-            if ($feed->feed->lasted_fetched_at <= $expiry) {
-                $refreshJob = new RefreshFeedJob($feed->feed);
-                dispatch($refreshJob);
+            if ($feed->isOutdated()) {
+                $feed->startReloading();
                 $refreshCount++;
             }
         }

@@ -3,7 +3,7 @@
         <div class="w-1/3">
             <h2 class="font-bold">Feeds</h2>
             <div v-for="feed in feeds">
-                {{ feed.name }}
+                <Feed :feed="feed"/>
             </div>
         </div>
         <div class="w-2/3">
@@ -13,7 +13,7 @@
             </div>
 
             <div class="py-2">
-                <Link :href="`/?page=${page + 1}`">Next Page</Link>
+                <Link href="/" :data="{page: page + 1}">Next Page</Link>
             </div>
         </div>
     </div>
@@ -21,9 +21,10 @@
 </template>
 <script>
     import Post from "../Parts/Post";
+    import Feed from "../Parts/Feed";
 
     export default {
-        components: {Post},
+        components: {Feed, Post},
         props: {
             page: Number,
             feeds: Array,
