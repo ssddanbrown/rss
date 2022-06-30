@@ -15,7 +15,20 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'RSS'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Configuration File
+    |--------------------------------------------------------------------------
+    |
+    | This value specifies the path to an RSS config file on the local
+    | filesystem to be loaded as a default option if there's no
+    | config set for the current user-level session.
+    |
+    */
+
+    'config_file' => env('APP_CONFIG_FILE', null),
 
     /*
     |--------------------------------------------------------------------------
