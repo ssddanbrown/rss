@@ -30,3 +30,4 @@ https://example.com/feed.xml Example-Site #updates #news
 
 https://www.bookstackapp.com/blog/index.xml
 http://feeds.bbci.co.uk/news/uk/rss.xml
+https://feeds.arstechnica.com/arstechnica/index

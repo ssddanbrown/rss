@@ -10,4 +10,5 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = ['url', 'title', 'description', 'published_at'];
+    protected $hidden = ['id', 'feed_id', 'created_at', 'updated_at'];
 }

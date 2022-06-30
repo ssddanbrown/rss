@@ -1,9 +1,7 @@
 <?php
 
-use App\Config\ConfiguredFeedProvider;
-use App\Rss\PostProvider;
+use App\Http\Controllers\PostViewController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +14,4 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'name' => 'Barry Scott',
-    ]);
-});
-
-Route::get('/feeds', function(PostProvider $postProvider, ConfiguredFeedProvider $configuredFeedProvider) {
-
-    $feeds = $configuredFeedProvider->getAll();
-    $feeds->reloadOutdatedFeeds();
-    $posts = $postProvider->getLatest($feeds, 100);
-
-    return response()->json([
-        'feeds' => $feeds,
-        'posts' => $posts,
-    ]);
-});
+Route::get('/', [PostViewController::class, 'home']);
