@@ -24,12 +24,12 @@ class ConfiguredFeedList implements IteratorAggregate, JsonSerializable
         return array_map(fn (ConfiguredFeed $feed) => $feed->feed->id, $this->feeds);
     }
 
-    public function getTagMap(): array
+    public function getMappedById(): array
     {
         $map = [];
 
         foreach ($this->feeds as $feed) {
-            $map[$feed->feed->id] = $feed->tags;
+            $map[$feed->feed->id] = $feed;
         }
 
         return $map;

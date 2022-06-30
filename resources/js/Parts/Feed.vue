@@ -1,9 +1,9 @@
 <template>
-    <div class="py-1">
-        <h4>{{ feed.name }}</h4>
-        <p>{{ feed.url }}</p>
-        <div class="flex gap-1">
-            <span v-for="tag in feed.tags" class="inline-block">{{ tag }}</span>
+    <div class="py-1 my-2">
+        <h4 class="font-bold">{{ feed.name }}</h4>
+        <div class="font-mono text-xs overflow-ellipsis">{{ feed.url }}</div>
+        <div class="flex gap-1 text-gray-600 text-sm">
+            <Tag v-for="tag in feed.tags" :tag="tag" class="inline-block">{{ tag }}</Tag>
         </div>
         <p v-if="feed.reloading">
             Reloading...
@@ -16,8 +16,10 @@
 <script>
 
 import axios from "axios";
+import Tag from "./Tag";
 
 export default {
+    components: {Tag},
     props: {
         feed: Object
     },

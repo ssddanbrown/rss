@@ -1,23 +1,40 @@
 <template>
-    <a :href="post.url" target="_blank" class="py-1 px-4 block">
-        <h3 class="text-xl">{{ post.title }}</h3>
-        <p>{{ post.description}}</p>
-        <small class="italic">{{ relatedPublishedTime }}</small>
-        <div class="flex gap-1">
-            <span v-for="tag in post.tags" class="inline-block">{{ tag }}</span>
+    <div class="p-4 block border border-transparent hover:border-gray-300 hover:shadow-md transition-shadow hover:relative hover:z-20 -my-px">
+
+        <div class="flex text-sm text-gray-600">
+            <div>{{ post.feed.name }}</div>
+            <div class="px-2">&bull;</div>
+            <div class="italic" :title="isoTime">About {{ relatedPublishedTime }} ago</div>
+            <div class="px-2">&bull;</div>
+            <div class="flex gap-2">
+                <Tag v-for="tag in post.feed.tags" :tag="tag"/>
+            </div>
         </div>
-    </a>
+
+        <h3 class="text-lg font-bold">
+            <a :href="post.url" target="_blank" class="hover:underline">{{ post.title }}</a>
+        </h3>
+
+        <p class="text-gray-600">
+            {{ post.description}}
+        </p>
+    </div>
 </template>
 <script>
+import Tag from "./Tag";
+import {timestampToRelativeTime} from "../util";
+
 export default {
+    components: {Tag},
     props: {
         post: Object,
     },
     computed: {
+        isoTime() {
+            return (new Date(this.post.published_at * 1000)).toISOString();
+        },
         relatedPublishedTime() {
-            const date = new Date(this.post.published_at * 1000);
-            const dateFormat = {weekday: "short", year: "numeric", month: "short", day: "numeric", hour: "numeric", minute: "numeric"};
-            return date.toLocaleString("en-GB", dateFormat);
+            return timestampToRelativeTime(this.post.published_at);
         }
     }
 }

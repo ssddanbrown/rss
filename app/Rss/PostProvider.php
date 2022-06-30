@@ -17,7 +17,7 @@ class PostProvider
             ->skip(($page - 1) * $count)
             ->get();
 
-        $this->loadTagsToPostCollection($posts, $feeds);
+        $this->loadFeedsToPostCollection($posts, $feeds);
 
         return $posts;
     }
@@ -25,12 +25,12 @@ class PostProvider
     /**
      * @param Collection<Post> $posts
      */
-    protected function loadTagsToPostCollection(Collection $posts, ConfiguredFeedList $feeds): void
+    protected function loadFeedsToPostCollection(Collection $posts, ConfiguredFeedList $feeds): void
     {
-        $tagsByFeedId = $feeds->getTagMap();
+        $feedsById = $feeds->getMappedById();
 
         foreach ($posts as $post) {
-            $post->setAttribute('tags', $tagsByFeedId[$post->feed_id] ?? []);
+            $post->setAttribute('feed', $feedsById[$post->feed_id] ?? []);
         }
     }
 }
