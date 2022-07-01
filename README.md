@@ -1,8 +1,9 @@
 ### TODO
 
 - Testing coverage
-- Config Editor
+- Post layout options
 - Docker setup
+  - Base URL for sub-path usage? Might not be needed. 
 - GH sponsors info
 - Low-Maintenance Notice
 - Mobile responsiveness

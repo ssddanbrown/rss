@@ -3,18 +3,34 @@
         <div class="w-1/3 flex justify-end border-r px-12 overflow-auto py-2">
             <div class="w-80">
 
-                <div>
+                <div v-if="search || tag || feed" class="mb-8">
+                    <Link href="/" class="font-bold text-black">&laquo Back to home</Link>
+                </div>
+
+                <div class="mb-8">
+                    <h2 class="font-bold mb-2">Search</h2>
+                    <form @submit.prevent="submitSearch">
+                        <input type="text"
+                               v-model="searchInputVal"
+                               placeholder="Post name or description"
+                               @change="submitSearch"
+                               class="border border-gray-300 rounded px-2 py-1 w-full">
+                        <button type="submit" class="hidden"></button>
+                    </form>
+                </div>
+
+                <div v-if="tags.length > 0" class="mb-8">
+                    <h2 class="font-bold mb-2">Tags</h2>
+                    <template v-for="tag in tags">
+                        <Tag :tag="tag" class="mr-3 font-bold text-gray-600"/>
+                    </template>
+                </div>
+
+                <div class="mb-8">
                     <h2 class="font-bold">Feeds</h2>
                     <template v-for="feed in feeds">
                         <Feed :feed="feed"/>
                         <hr class="last:hidden">
-                    </template>
-                </div>
-
-                <div v-if="tags.length > 0">
-                    <h2 class="font-bold mt-12 mb-2">Tags</h2>
-                    <template v-for="tag in tags">
-                        <Tag :tag="tag" class="mr-3 font-bold text-gray-600"/>
                     </template>
                 </div>
 
@@ -27,6 +43,7 @@
                     <Link href="/">Posts</Link>
                     <span v-if="tag"> / #{{ tag }}</span>
                     <span v-if="feed && feeds.length === 1"> / <span :style="{ color: feeds[0].color}">{{ feeds[0].name }}</span></span>
+                    <span v-if="search"> ?= {{ search }}</span>
                 </h2>
                 <div class="-mx-4">
                     <template v-for="post in posts">
@@ -65,6 +82,10 @@
             feed: {
                 type: String,
                 default: null,
+            },
+            search: {
+                type: String,
+                default: null,
             }
         },
         computed: {
@@ -79,6 +100,18 @@
                 }
 
                 return Object.keys(tags).sort();
+            }
+        },
+        data() {
+            return {
+                searchInputVal: this.search,
+            }
+        },
+        methods: {
+            submitSearch() {
+                this.$inertia.visit(``, {
+                    data: {query: this.searchInputVal}
+                });
             }
         }
     }
