@@ -6,7 +6,6 @@
   - Base URL for sub-path usage? Might not be needed. 
 - GH sponsors info
 - Low-Maintenance Notice
-- Mobile responsiveness
 
 ### Setup
 
@@ -49,3 +48,11 @@ https://example.com/feed-c.xml Blue_News[#0078b9] #news #blue
 https://www.bookstackapp.com/blog/index.xml
 http://feeds.bbci.co.uk/news/uk/rss.xml
 https://feeds.arstechnica.com/arstechnica/index
+
+### Attribution
+
+- https://icons.getbootstrap.com/
+- Laravel
+- InertiaJS
+- SQLite3
+- TailwindCSS https://tailwindcss.com/

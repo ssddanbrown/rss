@@ -1,9 +1,18 @@
 <template>
-    <div class="flex h-full min-h-0">
-        <div class="w-1/3 flex justify-end border-r px-12 overflow-auto py-2">
-            <div class="w-80">
+    <div class="md:flex h-full min-h-0">
+        <div class="md:w-1/3 md:flex md:justify-end md:border-r px-6 md:px-12 md:overflow-auto py-3">
+            <div class="md:hidden mb-2">
+                <button @click="mobileShowOptions = !mobileShowOptions"
+                        class="border w-full rounded py-1 px-3 hover:bg-gray-100 border-2 text-gray-600 gap-3 font-bold flex items-center">
+                    <svg :class="{'rotate-90': mobileShowOptions}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                    </svg>
+                    Toggle filters & options
+                </button>
+            </div>
+            <div class="xl:w-80 md:w-64 w-full hidden md:block" :class="{'!block': mobileShowOptions}">
 
-                <div v-if="search || tag || feed" class="mb-8">
+                <div v-if="search || tag || feed || page !== 1" class="mb-8">
                     <Link href="/" class="font-bold text-black">&laquo; Back to home</Link>
                 </div>
 
@@ -36,10 +45,10 @@
 
             </div>
         </div>
-        <div class="w-2/3 px-12 overflow-auto h-full py-2">
-            <div :class="{'max-w-xl': postFormat === 'card', 'max-w-2xl': postFormat === 'list', 'w-full': postFormat === 'compact'}">
+        <div class="md:w-2/3 px-6 md:px-12 md:overflow-auto md:h-full py-2">
+            <div :class="{'max-w-lg': postFormat === 'card', 'max-w-2xl': postFormat === 'list', 'w-full': postFormat === 'compact'}">
 
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between mb-2">
                     <h2 class="font-bold">
                         <Link href="/">Posts</Link>
                         <span v-if="tag"> / #{{ tag }}</span>
@@ -114,6 +123,7 @@
             return {
                 searchInputVal: this.search,
                 postFormat: 'card',
+                mobileShowOptions: false,
             }
         },
         methods: {

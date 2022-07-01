@@ -4,7 +4,7 @@
             <Link :href="`/f/${encodeURIComponent(encodeURIComponent(feed.url))}`">{{ feed.name }}</Link>
         </h4>
         <div class="font-mono text-gray-600 text-xs my-1 overflow-ellipsis whitespace-nowrap w-full overflow-hidden">{{ feed.url }}</div>
-        <div class="flex gap-1 text-gray-600 text-sm">
+        <div class="flex gap-1 text-gray-600 text-sm flex-wrap">
             <Tag v-for="tag in feed.tags" :tag="tag" class="inline-block">{{ tag }}</Tag>
         </div>
         <div v-if="feed.reloading || pendingRefresh" class="flex gap-2 items-center text-gray-600 text-sm mt-1">
