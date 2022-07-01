@@ -9,7 +9,7 @@ class RssConfig
      * The configured feeds.
      * Array keys are the feed URLs and values are arrays of tags as strings.
      * Tag strings include their '#' prefix.
-     * @var array<string, array{name: string, tags: string[]}>
+     * @var array<string, array{name: string, tags: string[], color: string}>
      */
     protected $feeds = [];
 
@@ -25,11 +25,12 @@ class RssConfig
     /**
      * Add a new feed to the config.
      */
-    public function addFeed(string $feed, string $name, array $tags = []): void
+    public function addFeed(string $feed, string $name, array $tags = [], string $color = ''): void
     {
         $this->feeds[$feed] = [
             'name' => $name,
             'tags' => $tags,
+            'color' => $color,
         ];
     }
 
@@ -66,6 +67,14 @@ class RssConfig
     }
 
     /**
+     * Get the color for the given feed.
+     */
+    public function getColor(string $feed): string
+    {
+        return $this->feeds[$feed]['color'] ?? '';
+    }
+
+    /**
      * Get the configuration as a string.
      */
     public function toString(): string
@@ -74,6 +83,10 @@ class RssConfig
 
         foreach ($this->feeds as $feed => $details) {
             $line = "{$feed} {$details['name']}";
+            if ($details['color']) {
+                $line .= "[{$details['color']}]";
+            }
+
             $tags = $details['tags'];
 
             foreach ($tags as $tag) {
@@ -103,10 +116,19 @@ class RssConfig
 
             $url = $parts[0];
             $name = $parts[1];
+            $color = '';
+
+            $matches = [];
+            if (preg_match('/^(.*)\[(.*)\]$/', $name, $matches)) {
+                $name = $matches[1];
+                $color = $matches[2];
+            }
+
+            $name = str_replace('_', ' ', $name);
             $tags = array_filter(array_slice($parts, 2), fn($str) => str_starts_with($str, '#'));
 
             if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
-                $this->addFeed($url, $name, $tags);
+                $this->addFeed($url, $name, $tags, $color);
             }
         }
     }

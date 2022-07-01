@@ -49,11 +49,11 @@ class RssConfigTest extends TestCase
         $config = new RssConfig();
         $config->parseFromString("
 https://example-B.com/cats?test=abc#okay a
-https://example.com b #dog #cat
+https://example.com b[#000] #dog #cat
 # A comment
 https://example-C.com/cats?test=abc#okay
 
-http://beans.com/feed.xml#food d #cooking
+http://beans.com/feed.xml#food d_is_cool #cooking
         ");
 
         $this->assertCount(3, $config->getFeedUrls());
@@ -62,7 +62,8 @@ http://beans.com/feed.xml#food d #cooking
         $this->assertEquals(['#cooking'], $config->getTags('http://beans.com/feed.xml#food'));
         $this->assertEquals('a', $config->getName('https://example-B.com/cats?test=abc#okay'));
         $this->assertEquals('b', $config->getName('https://example.com'));
-        $this->assertEquals('d', $config->getName('http://beans.com/feed.xml#food'));
+        $this->assertEquals('#000', $config->getColor('https://example.com'));
+        $this->assertEquals('d is cool', $config->getName('http://beans.com/feed.xml#food'));
     }
 
 

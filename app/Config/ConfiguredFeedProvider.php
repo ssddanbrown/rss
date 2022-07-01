@@ -54,6 +54,7 @@ class ConfiguredFeedProvider
                 $feed,
                 $this->config->getName($feedUrl),
                 $feedUrl,
+                $this->config->getColor($feedUrl),
                 $this->config->getTags($feedUrl)
             );
 

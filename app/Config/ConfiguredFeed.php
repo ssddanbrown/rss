@@ -14,13 +14,15 @@ class ConfiguredFeed implements JsonSerializable
         public Feed $feed,
         public string $name,
         public string $url,
-        public array $tags
+        public string $color,
+        public array $tags,
     ) {}
 
     public function jsonSerialize(): mixed
     {
         return [
             'name' => $this->name,
+            'color' => $this->color,
             'url' => $this->url,
             'tags' => $this->tags,
             'reloading' => $this->reloading,

@@ -1,6 +1,6 @@
 <template>
     <div class="py-1 my-2">
-        <h4 class="font-bold">{{ feed.name }}</h4>
+        <h4 class="font-bold" :style="{color: feed.color}">{{ feed.name }}</h4>
         <div class="font-mono text-xs overflow-ellipsis">{{ feed.url }}</div>
         <div class="flex gap-1 text-gray-600 text-sm">
             <Tag v-for="tag in feed.tags" :tag="tag" class="inline-block">{{ tag }}</Tag>
