@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ConfiguredFeedProvider::class, function ($app) {
             $provider = new ConfiguredFeedProvider();
-            $provider->loadFromEnvironment();
+            $provider->loadFromConfig();
             return $provider;
         });
     }

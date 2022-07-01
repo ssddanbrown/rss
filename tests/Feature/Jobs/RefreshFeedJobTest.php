@@ -18,7 +18,7 @@ class RefreshFeedJobTest extends TestCase
     {
         $feed = Feed::factory()->create([
             'url' => 'https://example.com/feed.xml',
-            'lasted_fetched_at' => time() - 50000,
+            'last_fetched_at' => time() - 50000,
         ]);
         $job = new RefreshFeedJob($feed);
         Http::fake([
@@ -46,7 +46,7 @@ END)
         /** @var Post[] $posts */
         $posts = $feed->posts()->get();
         $this->assertCount(1, $posts);
-        $this->assertGreaterThan(time() - 10, $feed->refresh()->lasted_fetched_at);
+        $this->assertGreaterThan(time() - 10, $feed->refresh()->last_fetched_at);
 
         $this->assertDatabaseHas('posts', [
             'feed_id' => $feed->id,

@@ -11,24 +11,23 @@ class ConfiguredFeedProvider
     /** @var ConfiguredFeed[]  */
     protected $feeds = [];
 
-    public function loadFromEnvironment(): void
+    public function loadFromConfig(): void
     {
         $this->config = new RssConfig();
-
-        $config = session()->get('rss_config', null);
-        if ($config) {
-            $this->config->parseFromString($config);
-            $this->feeds = $this->getConfiguredFeeds();
-            return;
-        }
 
         $configFilePath = config('app.config_file');
         if ($configFilePath && file_exists($configFilePath)) {
             $contents = file_get_contents($configFilePath);
             $this->config->parseFromString($contents);
             $this->feeds = $this->getConfiguredFeeds();
-            return;
         }
+    }
+
+    public function loadFromString(string $config): void
+    {
+        $this->config = new RssConfig();
+        $this->config->parseFromString($config);
+        $this->feeds = $this->getConfiguredFeeds();
     }
 
     /**

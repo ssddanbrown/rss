@@ -2,7 +2,6 @@
 
 namespace App\Config;
 
-use App\Jobs\RefreshFeedJob;
 use IteratorAggregate;
 use JsonSerializable;
 use Traversable;

@@ -22,8 +22,8 @@ class PostFactory extends Factory
             'published_at' => now()->subHours(random_int(0, 200))->unix(),
             'title' => $this->faker->title,
             'description' => $this->faker->words(50, true),
-            'url' => $this->faker->url,
-            'thumbnail' => '',
+            'url' => $this->faker->url . '?query=' . random_int(0, 1000),
+            'thumbnail' => ''
         ];
     }
 }

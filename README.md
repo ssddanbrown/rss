@@ -1,10 +1,7 @@
 ### TODO
 
-- Testing coverage
-- Post layout options
 - Docker setup
-  - Base URL for sub-path usage? Might not be needed. 
-- GH sponsors info
+  - Base URL for sub-path usage? Might not be needed.
 - Low-Maintenance Notice
 
 ### Setup
