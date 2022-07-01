@@ -1,5 +1,7 @@
 <template>
-    <div class="rss-post p-4 block border border-transparent hover:border-gray-200 hover:bg-gray-100 rounded hover:relative hover:z-20 -my-px">
+    <div
+        :class="{'py-2': formatCompact}"
+        class="rss-post p-4 block border border-transparent hover:border-gray-200 hover:bg-gray-100 rounded hover:relative hover:z-20 -my-px">
 
         <div class="flex text-sm text-gray-600 items-center">
             <Link :href="`/f/${encodeURIComponent(encodeURIComponent(post.feed.url))}`" :style="{color: post.feed.color}" class="font-bold text-xs block">{{ post.feed.name }}</Link>
@@ -11,22 +13,27 @@
             </div>
         </div>
 
-        <div v-if="post.thumbnail">
-            <a :href="post.url" target="_blank" class="block overflow-hidden rounded my-2 border">
-                <img :src="`/storage/${post.thumbnail}`"
-                     loading="lazy"
-                     class="w-full h-64 object-cover saturate-50"
-                     :alt="post.title">
-            </a>
+        <div :class="{'flex items-center gap-5': formatList && post.thumbnail}">
+            <div v-if="post.thumbnail && !formatCompact" :class="{'w-32': formatList}">
+                <a :href="post.url" target="_blank" class="block overflow-hidden rounded my-2 border">
+                    <img :src="`/storage/${post.thumbnail}`"
+                         loading="lazy"
+                         class="w-full h-64 object-cover saturate-50"
+                         :class="{'h-16': formatList}"
+                         :alt="post.title">
+                </a>
+            </div>
+
+            <div :class="{'whitespace-nowrap overflow-ellipsis overflow-hidden': formatCompact, 'flex-1': formatList}">
+                <h3 class="font-bold" :class="{'text-lg': formatCard, 'text-md': formatList, 'inline': formatCompact}">
+                    <a :href="post.url" target="_blank" class="hover:underline">{{ post.title }}</a>
+                </h3>
+
+                <p class="text-gray-600" :class="{'inline ml-2 text-sm': formatCompact}">
+                    {{ post.description}}
+                </p>
+            </div>
         </div>
-
-        <h3 class="text-lg font-bold">
-            <a :href="post.url" target="_blank" class="hover:underline">{{ post.title }}</a>
-        </h3>
-
-        <p class="text-gray-600">
-            {{ post.description}}
-        </p>
     </div>
 </template>
 <script>
@@ -37,6 +44,10 @@ export default {
     components: {Tag},
     props: {
         post: Object,
+        format: {
+            type: String,
+            default: 'list',
+        }
     },
     computed: {
         isoTime() {
@@ -44,6 +55,15 @@ export default {
         },
         relatedPublishedTime() {
             return timestampToRelativeTime(this.post.published_at);
+        },
+        formatCard() {
+            return this.format === 'card';
+        },
+        formatList() {
+            return this.format === 'list';
+        },
+        formatCompact() {
+            return this.format === 'compact';
         }
     }
 }

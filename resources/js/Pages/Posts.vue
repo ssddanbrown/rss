@@ -4,7 +4,7 @@
             <div class="w-80">
 
                 <div v-if="search || tag || feed" class="mb-8">
-                    <Link href="/" class="font-bold text-black">&laquo Back to home</Link>
+                    <Link href="/" class="font-bold text-black">&laquo; Back to home</Link>
                 </div>
 
                 <div class="mb-8">
@@ -37,17 +37,24 @@
             </div>
         </div>
         <div class="w-2/3 px-12 overflow-auto h-full py-2">
-            <div class="max-w-xl">
+            <div :class="{'max-w-xl': postFormat === 'card', 'max-w-2xl': postFormat === 'list', 'w-full': postFormat === 'compact'}">
 
-                <h2 class="font-bold">
-                    <Link href="/">Posts</Link>
-                    <span v-if="tag"> / #{{ tag }}</span>
-                    <span v-if="feed && feeds.length === 1"> / <span :style="{ color: feeds[0].color}">{{ feeds[0].name }}</span></span>
-                    <span v-if="search"> ?= {{ search }}</span>
-                </h2>
+                <div class="flex items-center justify-between">
+                    <h2 class="font-bold">
+                        <Link href="/">Posts</Link>
+                        <span v-if="tag"> / #{{ tag }}</span>
+                        <span v-if="feed && feeds.length === 1"> / <span :style="{ color: feeds[0].color}">{{ feeds[0].name }}</span></span>
+                        <span v-if="search"> ?= {{ search }}</span>
+                    </h2>
+
+                    <div>
+                        <FormatSelector :format="postFormat" @change="updateFormat($event)" />
+                    </div>
+                </div>
+
                 <div class="-mx-4">
                     <template v-for="post in posts">
-                        <Post :post="post"/>
+                        <Post :post="post" :format="postFormat"/>
                         <div class="px-4">
                             <hr>
                         </div>
@@ -68,9 +75,10 @@
     import Post from "../Parts/Post.vue";
     import Feed from "../Parts/Feed.vue";
     import Tag from "../Parts/Tag.vue";
+    import FormatSelector from "../Parts/FormatSelector.vue";
 
     export default {
-        components: {Tag, Feed, Post},
+        components: {FormatSelector, Tag, Feed, Post},
         props: {
             page: Number,
             feeds: Array,
@@ -105,6 +113,7 @@
         data() {
             return {
                 searchInputVal: this.search,
+                postFormat: 'card',
             }
         },
         methods: {
@@ -112,6 +121,16 @@
                 this.$inertia.visit(``, {
                     data: {query: this.searchInputVal}
                 });
+            },
+            updateFormat(postFormat) {
+                this.postFormat = postFormat;
+                window.localStorage.setItem('post-format', postFormat);
+            }
+        },
+        mounted() {
+            const format = window.localStorage.getItem('post-format');
+            if (format) {
+                this.postFormat = format;
             }
         }
     }
