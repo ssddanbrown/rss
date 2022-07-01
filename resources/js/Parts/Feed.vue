@@ -1,10 +1,10 @@
 <template>
     <div class="py-1 my-2">
-        <h4 class="font-bold" :style="{color: feed.color}">
+        <h4 class="font-bold text-black dark:text-gray-400" :style="{color: feed.color}">
             <Link :href="`/f/${encodeURIComponent(encodeURIComponent(feed.url))}`">{{ feed.name }}</Link>
         </h4>
-        <div class="font-mono text-gray-600 text-xs my-1 overflow-ellipsis whitespace-nowrap w-full overflow-hidden">{{ feed.url }}</div>
-        <div class="flex gap-1 text-gray-600 text-sm flex-wrap">
+        <div class="font-mono text-gray-600 dark:text-gray-500 text-xs my-1 overflow-ellipsis whitespace-nowrap w-full overflow-hidden">{{ feed.url }}</div>
+        <div class="flex gap-1 text-gray-600 dark:text-gray-500 text-sm flex-wrap">
             <Tag v-for="tag in feed.tags" :tag="tag" class="inline-block">{{ tag }}</Tag>
         </div>
         <div v-if="feed.reloading || pendingRefresh" class="flex gap-2 items-center text-gray-600 text-sm mt-1">

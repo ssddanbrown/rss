@@ -1,8 +1,15 @@
+
+[![PHPUnit](https://github.com/ssddanbrown/rss/actions/workflows/phpunit.yml/badge.svg?branch=main)](https://github.com/ssddanbrown/rss/actions/workflows/phpunit.yml)
+
+
+
 ### TODO
 
 - Docker setup
   - Base URL for sub-path usage? Might not be needed.
 - Low-Maintenance Notice
+- Dark Mode
+- Bogroll
 
 ### Setup
 
