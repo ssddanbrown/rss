@@ -91,6 +91,13 @@ class ConfiguredFeedProvider
         return null;
     }
 
+    public function getAsList(string $feedUrl): ConfiguredFeedList
+    {
+        $feed = $this->get($feedUrl);
+        $feeds = $feed ? [$feed] : [];
+        return new ConfiguredFeedList($feeds);
+    }
+
     public function getForTag(string $tag)
     {
         $feeds = array_filter($this->feeds, function (ConfiguredFeed $feed) use ($tag) {

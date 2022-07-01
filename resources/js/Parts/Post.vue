@@ -2,7 +2,7 @@
     <div class="p-4 block border border-transparent hover:border-gray-300 hover:shadow-md transition-shadow hover:relative hover:z-20 -my-px">
 
         <div class="flex text-sm text-gray-600 items-center">
-            <div :style="{color: post.feed.color}" class="font-bold text-xs">{{ post.feed.name }}</div>
+            <Link :href="`/f/${encodeURIComponent(encodeURIComponent(post.feed.url))}`" :style="{color: post.feed.color}" class="font-bold text-xs block">{{ post.feed.name }}</Link>
             <div class="px-2">&bull;</div>
             <div class="italic" :title="isoTime">About {{ relatedPublishedTime }} ago</div>
             <div class="px-2">&bull;</div>

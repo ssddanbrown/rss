@@ -27,10 +27,51 @@ class PostViewController extends Controller
             $page
         );
 
-        return Inertia::render('Home', [
+        return Inertia::render('Posts', [
             'feeds' => $feeds,
             'posts' => $posts,
             'page' => $page,
+        ]);
+    }
+
+    public function tag(Request $request, string $tag)
+    {
+        $page = max(intval($request->get('page')), 1);
+
+        $feeds = $this->feedProvider->getForTag('#' . $tag);
+        $feeds->reloadOutdatedFeeds();
+        $posts = $this->postProvider->getLatest(
+            $feeds,
+            100,
+            $page
+        );
+
+        return Inertia::render('Posts', [
+            'feeds' => $feeds,
+            'posts' => $posts,
+            'page' => $page,
+            'tag' => $tag,
+        ]);
+    }
+
+    public function feed(Request $request, string $feed)
+    {
+        $page = max(intval($request->get('page')), 1);
+        $feed = urldecode($feed);
+
+        $feeds = $this->feedProvider->getAsList($feed);
+        $feeds->reloadOutdatedFeeds();
+        $posts = $this->postProvider->getLatest(
+            $feeds,
+            100,
+            $page
+        );
+
+        return Inertia::render('Posts', [
+            'feeds' => $feeds,
+            'posts' => $posts,
+            'page' => $page,
+            'feed' => $feed,
         ]);
     }
 }

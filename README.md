@@ -1,10 +1,11 @@
 ### TODO
 
 - Testing coverage
-- Tag filtering
-- Feed filtering
+- Post images?
+- Config Editor
 - Docker setup
 - GH sponsors info
+- Low-Maintenance Notice
 
 ### Setup
 
