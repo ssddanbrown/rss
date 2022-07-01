@@ -3,7 +3,7 @@
         <h4 class="font-bold" :style="{color: feed.color}">
             <Link :href="`/f/${encodeURIComponent(encodeURIComponent(feed.url))}`">{{ feed.name }}</Link>
         </h4>
-        <div class="font-mono text-gray-600 text-xs overflow-ellipsis whitespace-nowrap w-full overflow-hidden">{{ feed.url }}</div>
+        <div class="font-mono text-gray-600 text-xs my-1 overflow-ellipsis whitespace-nowrap w-full overflow-hidden">{{ feed.url }}</div>
         <div class="flex gap-1 text-gray-600 text-sm">
             <Tag v-for="tag in feed.tags" :tag="tag" class="inline-block">{{ tag }}</Tag>
         </div>

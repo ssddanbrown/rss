@@ -1,11 +1,11 @@
 ### TODO
 
 - Testing coverage
-- Post images?
 - Config Editor
 - Docker setup
 - GH sponsors info
 - Low-Maintenance Notice
+- Mobile responsiveness
 
 ### Setup
 
@@ -13,6 +13,12 @@
 
 # Create database
 touch storage/database/database.sqlite
+
+# Generate app key
+php artisan key:generate
+
+# Enable public storage
+php artisan storage:link
 
 ```
 

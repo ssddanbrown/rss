@@ -23,6 +23,7 @@ class PostFactory extends Factory
             'title' => $this->faker->title,
             'description' => $this->faker->words(50, true),
             'url' => $this->faker->url,
+            'thumbnail' => '',
         ];
     }
 }

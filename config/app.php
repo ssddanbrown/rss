@@ -32,6 +32,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Load Post Thumbnails
+    |--------------------------------------------------------------------------
+    |
+    | This value specifies whether the application should fetch and
+    | download RSS post thumbnails since this can take up space
+    | and require extra time to process feeds.
+    |
+    */
+
+    'load_post_thumbnails' => env('APP_LOAD_POST_THUMBNAILS', true),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |

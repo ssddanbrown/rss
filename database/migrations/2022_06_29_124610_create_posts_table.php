@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title', 250);
             $table->text('description');
             $table->string('url', 250);
+            $table->string('thumbnail')->default('');
             $table->timestamps();
 
             $table->unique(['feed_id', 'url']);

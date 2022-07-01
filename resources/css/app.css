@@ -5,3 +5,7 @@
 #app {
     @apply h-full;
 }
+
+.rss-post:hover img {
+    @apply saturate-100;
+}

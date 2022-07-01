@@ -8,6 +8,7 @@
         "php": "^8.1",
         "ext-zlib": "*",
         "ext-simplexml": "*",
+        "ext-fileinfo": "*",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.2",
         "laravel/framework": "^9.19",

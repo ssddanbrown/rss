@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Models\Feed;
-use App\Rss\FeedPostFetcher;
+use App\Models\Post;
+use App\Rss\PostThumbnailFetcher;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
+class FetchPostThumbnailJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -26,7 +26,7 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
      * @return void
      */
     public function __construct(
-        protected Feed $feed
+        protected Post $post
     ) {}
 
     /**
@@ -34,23 +34,9 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
      *
      * @return void
      */
-    public function handle(FeedPostFetcher $postFetcher)
+    public function handle(PostThumbnailFetcher $thumbnailFetcher)
     {
-        $freshPosts = $postFetcher->fetchForFeed($this->feed);
-
-        foreach ($freshPosts as $post) {
-            $post = $this->feed->posts()->updateOrCreate(
-                ['url' => $post->url],
-                $post->getAttributes(),
-            );
-
-            if ($post->wasRecentlyCreated) {
-                dispatch(new FetchPostThumbnailJob($post));
-            }
-        }
-
-        $this->feed->last_fetched_at = time();
-        $this->feed->save();
+        $thumbnailFetcher->fetchAndStoreForPost($this->post);
     }
 
     /**
@@ -58,6 +44,6 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
      */
     public function uniqueId(): string
     {
-        return strval($this->feed->id);
+        return strval($this->post->id);
     }
 }
