@@ -10,7 +10,7 @@
         "ext-simplexml": "*",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.2",
-        "laravel/framework": "^9.11",
+        "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7"
     },

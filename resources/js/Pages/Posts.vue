@@ -48,9 +48,9 @@
 
 </template>
 <script>
-    import Post from "../Parts/Post";
-    import Feed from "../Parts/Feed";
-    import Tag from "../Parts/Tag";
+    import Post from "../Parts/Post.vue";
+    import Feed from "../Parts/Feed.vue";
+    import Tag from "../Parts/Tag.vue";
 
     export default {
         components: {Tag, Feed, Post},

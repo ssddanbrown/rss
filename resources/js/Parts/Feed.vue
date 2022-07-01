@@ -26,7 +26,7 @@
 <script>
 
 import axios from "axios";
-import Tag from "./Tag";
+import Tag from "./Tag.vue";
 
 export default {
     components: {Tag},

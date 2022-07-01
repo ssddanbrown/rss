@@ -21,7 +21,7 @@
     </div>
 </template>
 <script>
-import Tag from "./Tag";
+import Tag from "./Tag.vue";
 import {timestampToRelativeTime} from "../util";
 
 export default {
