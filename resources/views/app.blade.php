@@ -6,7 +6,9 @@
 
     <title>{{ config('app.name') }}</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if(!app()->runningUnitTests())
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
 
     @inertiaHead
 </head>
