@@ -37,7 +37,7 @@ class RssParser
             $date = DateTime::createFromFormat('D, d M Y H:i:s T', $item->pubDate ?? '');
             $postData = [
                 'title' => substr(strval($item->title ?? ''), 0, 250),
-                'description' => substr(strval($item->description ?? ''), 0, 1000),
+                'description' => $this->formatDescription(strval($item->description) ?: ''),
                 'url' => strval($item->link ?? ''),
                 'published_at' => $date ? $date->getTimestamp() : 0,
             ];
@@ -50,6 +50,17 @@ class RssParser
         }
 
         return $posts;
+    }
+
+    protected function formatDescription(string $description): string
+    {
+        $decoded = html_entity_decode(strip_tags($description));
+        
+        if (strlen($decoded) > 200) {
+            return substr($decoded, 0, 200) . '...';
+        }
+
+        return $decoded;
     }
 
     /**

@@ -133,4 +133,27 @@ END
         $this->assertCount(0, $posts);
     }
 
+    public function test_descriptions_in_html_are_parsed()
+    {
+        $parser = new RssParser();
+
+        $posts = $parser->rssDataToPosts(<<<END
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0">
+  <channel>
+    <item>
+      <title>BookStack Release v22.06</title>
+      <link>https://www.bookstackapp.com/blog/bookstack-release-v22-06/</link>
+      <pubDate>Fri, 24 Jun 2022 11:00:00 +0000</pubDate>
+      <guid>https://www.bookstackapp.com/blog/bookstack-release-v22-06/</guid>
+      <description>&lt;span a=&quot;b&quot;&gt;Some really cool text&lt;/span&gt; &amp;amp; with &amp;pound; entities within</description>
+    </item>
+  </channel>
+</rss>
+END
+        );
+
+        $this->assertEquals('Some really cool text & with £ entities within', $posts[0]->description);
+    }
+
 }
