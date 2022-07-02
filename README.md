@@ -8,6 +8,7 @@ A simple, opinionated, RSS feed aggregator.
 
 The following features are built into the application:
 
+- Supports RSS and ATOM formats.
 - Regular auto-fetching of RSS feeds (Every hour).
 - Custom feed names and colors.
 - Feed-based tags for categorization.
@@ -29,6 +30,8 @@ This is not a list of planned features. Please see the [Low Maintenance Project]
 - No user authentication or management system.
 - No customization, extension or plugin system.
 - No organisation upon feed-level tagging.
+
+Upon the above, it's quite likely you'll come across issues. This project was created to meet a personal need while learning some new technologies. Much of the logic is custom written instead of using battle-tested libraries. 
 
 ## Screenshots
 

@@ -17,12 +17,14 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $url = $this->faker->url . '?query=' . random_int(0, 1000);
         return [
             'feed_id' => Feed::factory(),
             'published_at' => now()->subHours(random_int(0, 200))->unix(),
             'title' => $this->faker->title,
             'description' => $this->faker->words(50, true),
-            'url' => $this->faker->url . '?query=' . random_int(0, 1000),
+            'url' => $url,
+            'guid' => $url,
             'thumbnail' => ''
         ];
     }

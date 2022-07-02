@@ -41,7 +41,7 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
 
         foreach ($freshPosts as $post) {
             $post = $this->feed->posts()->updateOrCreate(
-                ['url' => $post->url],
+                ['guid' => $post->guid],
                 $post->getAttributes(),
             );
 

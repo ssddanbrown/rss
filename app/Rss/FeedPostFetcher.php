@@ -24,7 +24,9 @@ class FeedPostFetcher
         }
 
         $rssData = ltrim($feedResponse->body());
-        if (substr($rssData, 0, 6) !== '<?xml ') {
+        $tagStart = explode(' ', substr($rssData, 0, 20))[0];
+        $validStarts = ['<?xml', '<feed', '<rss'];
+        if (!in_array($tagStart, $validStarts)) {
             return [];
         }
 
