@@ -1,0 +1,8 @@
+/vendor
+/node_modules
+/feeds.txt
+/public/storage
+/storage/app/*
+/storage/database/*
+/storage/framework/*
+/storage/logs/*

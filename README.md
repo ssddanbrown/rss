@@ -8,8 +8,12 @@
 - Docker setup
   - Base URL for sub-path usage? Might not be needed.
 - Low-Maintenance Notice
-- Dark Mode
-- Bogroll
+
+## Docker 
+
+## Building
+
+docker build -f docker/Dockerfile .
 
 ### Setup
 
