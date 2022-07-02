@@ -3,14 +3,14 @@
         <div class="md:w-1/3 xl:w-1/4 md:flex md:justify-end md:border-r dark:border-black px-6 bg-gray-50 dark:bg-gray-800 md:px-12 md:overflow-auto py-3">
             <div class="md:hidden mb-2">
                 <button @click="mobileShowOptions = !mobileShowOptions"
-                        class="border w-full rounded py-1 px-3 hover:bg-gray-100 border-2 text-gray-600 gap-3 font-bold flex items-center">
+                        class="border w-full rounded py-1 px-3 hover:bg-gray-100 dark:hover:bg-gray-700 border-2 text-gray-600 dark:text-gray-400 dark:border-gray-600 gap-3 font-bold flex items-center">
                     <svg :class="{'rotate-90': mobileShowOptions}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                         <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                     </svg>
                     Toggle filters & options
                 </button>
             </div>
-            <div class="xl:w-80 md:w-64 w-full hidden md:block" :class="{'!block': mobileShowOptions}">
+            <div class="md:max-w-xs w-full hidden md:block" :class="{'!block': mobileShowOptions}">
 
                 <div v-if="search || tag || feed || page !== 1" class="mb-8">
                     <Link href="/" class="font-bold text-black dark:text-gray-400">&laquo; Back to home</Link>
