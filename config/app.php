@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'config_file' => env('APP_CONFIG_FILE', null),
+    'config_file' => env('APP_CONFIG_FILE', storage_path('feeds.txt')),
 
     /*
     |--------------------------------------------------------------------------

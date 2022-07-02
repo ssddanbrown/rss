@@ -1,36 +1,95 @@
+# RSS
+
+A simple, opinionated, RSS feed aggregator.
 
 [![PHPUnit](https://github.com/ssddanbrown/rss/actions/workflows/phpunit.yml/badge.svg?branch=main)](https://github.com/ssddanbrown/rss/actions/workflows/phpunit.yml)
 
+## Features
 
+The following features are built into the application:
 
-### TODO
+- Regular auto-fetching of RSS feeds.
+- Custom feed names and colors.
+- Feed-based tags for categorization.
+- 3 different post layout modes (card, list, compact).
+- Fetching of page open-graph images.
+- Managed via a single plaintext file.
+- System-based dark/light theme.
+- Post title/description search.
+- Ready-to-use docker image.
 
-- Docker setup
-  - Base URL for sub-path usage? Might not be needed.
-- Low-Maintenance Notice
+## Limitations
 
-## Docker 
+The below possibly expected features are missing from this application.
+This is not a list of planned features. Please see the [Low Maintenance Project](#low-maintenance-project) section below for more info.
 
-## Building
+- No import of full post/article content.
+- No feed management via the UI.
+- No user authentication or management system.
+- No customization, extension or plugin system.
+- No organisation upon feed-level tagging.
 
-docker build -f docker/Dockerfile .
+## Screenshots
 
-### Setup
+TODO
+
+## Configuration
+
+TODO
+
+## Docker Usage
+
+A pre-built docker image is available to run the application. 
+Storage data is confined to a single `/app/storage` directory for easy volume mounting.
+Port 80 is exposed by default for application access. This application does not support HTTPS, for that you should instead use a proxy layer such as nginx.
+
+#### Docker Run Command Example
+
+In the below command, the application will be accessible at http://localhost:8080 on the host and the files would be stored in a `/home/barry/rss` directory. In this example, feeds would be configured in a `/home/barry/rss/feeds.txt` file.
 
 ```shell
-
-# Create database
-touch storage/database/database.sqlite
-
-# Generate app key
-php artisan key:generate
-
-# Enable public storage
-php artisan storage:link
-
+docker run -d \
+    --restart unless-stopped \
+    -p 8080:80 \
+    -v /home/barry/rss:/app/storage \
+    ghcr.io/ssddanbrown/rss:latest  
 ```
 
-### Config Format
+#### Docker Compose Example
+
+In the below `docker-compose.yml` example, the application will be accessible at http://localhost:8080 on the host and the files would be stored in a `/home/barry/rss` directory. In this example, feeds would be configured in a `/home/barry/rss/feeds.txt` file.
+
+```yml
+---
+version: "2"
+services:
+    rss:
+        image: ghcr.io/ssddanbrown/rss:latest
+        container_name: rss
+        environment:
+            - APP_NAME=RSS
+        volumes:
+            - /home/barry/rss:/app/storage
+        ports:
+            - "8080:80"
+        restart: unless-stopped
+```
+
+
+### Building the Docker Image
+
+If you'd like to build the image from scratch, instead of using the pre-built image, you can do so like this:
+
+```shell
+docker build -f docker/Dockerfile .
+```
+
+## Feed Configuration
+
+Feed configuration is handled by a plaintext file on the host system.
+By default, using our docker image, this configuration would be located in a `feeds.txt` file within the path you mounted to `/app/storage`.
+
+The format of this file can be seen below:
 
 ```txt
 https://feed.url.com/feed.xml feed-name #tag-a #tag-b
@@ -47,20 +106,64 @@ https://example.com/feed-b.xml News_Site #news
 https://example.com/feed-c.xml Blue_News[#0078b9] #news #blue
 ```
 
-### RSS Info
+## Manual Install
 
-- Spec: https://cyber.harvard.edu/rss/rss.html#comments
+Manually installing the application is not recommended unless you are performing development work on the project.
+Instead, use of the docker image is advised.
 
-#### Feed URLs For Testing
+This project is based upon Laravel so the requirements and install process are much the same.
+You will need git, PHP, composer and NodeJS installed. Installation would generally be as follows:
 
-https://www.bookstackapp.com/blog/index.xml
-http://feeds.bbci.co.uk/news/uk/rss.xml
-https://feeds.arstechnica.com/arstechnica/index
+```shell
+# Clone down and enter the project
+git clone https://github.com/ssddanbrown/rss.git
+cd rss
 
-### Attribution
+# Install PHP dependencies via composer
+# This will check you meet the minimum PHP version and extensions required.
+composer install
 
-- https://icons.getbootstrap.com/
-- Laravel
-- InertiaJS
-- SQLite3
-- TailwindCSS https://tailwindcss.com/
+# Create database file
+touch storage/database/database.sqlite
+
+# Copy config, generate app key, migrate database & link storage
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan storage:link
+
+# Install JS dependencies & build CSS/JS
+npm install
+npm run build
+```
+
+For a production server you'd really want to have a webserver active to server the `public` directory and handle PHP.
+You'd also need a process to run the laravel queue system in addition to a cron job to run the schedule.
+
+On a development system, These can be done like so:
+
+```shell
+# Serve the app
+php artisan serve
+
+# Watch the queue
+php artisan queue:listen
+
+# Work the schedule
+php artisan schedule:work
+```
+
+## Low Maintenance Project
+
+This is a low maintenance project. The scope of features and support are purposefully kept narrow for my purposes to ensure longer term maintenance is viable. I'm not looking to grow this into a bigger project at all.
+
+Issues and PRs raised for bugs are perfectly fine assuming they don't significantly increase the scope of the project. Please don't open PRs for new features that expand the scope.
+
+## Attribution
+
+This is primarily built using the following great projects and technologies:
+
+- [Laravel](https://laravel.com/) - [MIT License](https://github.com/laravel/framework/blob/9.x/LICENSE.md)
+- [InertiaJS](https://inertiajs.com/) - [MIT License](https://github.com/inertiajs/inertia/blob/master/LICENSE)
+- [SQLite](https://www.sqlite.org/index.html) - [Public Domain](https://www.sqlite.org/copyright.html)
+- [TailwindCSS](https://tailwindcss.com/) - [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/master/LICENSE)

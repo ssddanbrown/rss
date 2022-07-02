@@ -5,6 +5,7 @@ cd /app || exit
 
 # Setup
 touch -a /app/storage/database/database.sqlite
+touch -a /app/storage/feeds.txt
 mkdir -p /app/storage/framework/cache
 mkdir -p /app/storage/framework/sessions
 mkdir -p /app/storage/framework/testing

@@ -1,8 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "ssddanbrown/rss",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Simple RSS aggregator",
     "license": "MIT",
     "require": {
         "php": "^8.1",
