@@ -35,7 +35,29 @@ Upon the above, it's quite likely you'll come across issues. This project was cr
 
 ## Screenshots
 
-TODO
+
+<table>
+	<tbody>
+		<tr>
+			<td width="25%">
+				Card View
+				<img src="https://github.com/ssddanbrown/rss/raw/main/.github/screenshots/card-view.png">
+			</td>
+			<td width="25%">
+				List View
+				<img src="https://github.com/ssddanbrown/rss/raw/main/.github/screenshots/list-view.png">
+			</td>
+			<td width="25%">
+				Compact View
+				<img src="https://github.com/ssddanbrown/rss/raw/main/.github/screenshots/compact-view.png">
+			</td>
+			<td width="25%">
+				Dark Mode
+				<img src="https://github.com/ssddanbrown/rss/raw/main/.github/screenshots/dark-mode.png">
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 
 ## Docker Usage
