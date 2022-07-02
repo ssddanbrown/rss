@@ -8,7 +8,7 @@ A simple, opinionated, RSS feed aggregator.
 
 The following features are built into the application:
 
-- Regular auto-fetching of RSS feeds.
+- Regular auto-fetching of RSS feeds (Every hour).
 - Custom feed names and colors.
 - Feed-based tags for categorization.
 - 3 different post layout modes (card, list, compact).
@@ -33,9 +33,6 @@ This is not a list of planned features. Please see the [Low Maintenance Project]
 
 TODO
 
-## Configuration
-
-TODO
 
 ## Docker Usage
 
@@ -104,6 +101,27 @@ https://example.com/feed-b.xml News_Site #news
 # Feed color can be set using square brackets after the name.
 # The color must be a CSS-compatible color value.
 https://example.com/feed-c.xml Blue_News[#0078b9] #news #blue
+```
+
+## App Configuration
+
+The application allows some configuration through variables.
+These can be set via the `.env` file or, when using docker, via environment variables.
+
+```shell
+# The name of the application.
+# Only really shown in the title/browser-tab.
+APP_NAME=RSS
+
+# The path to the config file.
+# Defaults to `storage/feeds.txt` within the application folder.
+APP_CONFIG_FILE=/app/storage/feeds.txt
+
+# Enable or disable the loading of post thumbnails.
+# Does not control them within the UI, but controls the fetching
+# when posts are fetched.
+# Defaults to true.
+APP_LOAD_POST_THUMBNAILS=true
 ```
 
 ## Manual Install

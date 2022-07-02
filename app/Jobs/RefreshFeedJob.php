@@ -37,6 +37,7 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
     public function handle(FeedPostFetcher $postFetcher)
     {
         $freshPosts = $postFetcher->fetchForFeed($this->feed);
+        $loadThumbs = config('app.load_post_thumbnails', false);
 
         foreach ($freshPosts as $post) {
             $post = $this->feed->posts()->updateOrCreate(
@@ -44,7 +45,7 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
                 $post->getAttributes(),
             );
 
-            if ($post->wasRecentlyCreated) {
+            if ($loadThumbs && $post->wasRecentlyCreated) {
                 dispatch(new FetchPostThumbnailJob($post));
             }
         }

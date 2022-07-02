@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('rss:update-outdated-feeds')->everyFifteenMinutes();
+        $schedule->command('rss:update-outdated-feeds')->hourly();
     }
 
     /**
