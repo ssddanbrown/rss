@@ -17,6 +17,7 @@ The following features are built into the application:
 - System-based dark/light theme.
 - Post title/description search.
 - Ready-to-use docker image.
+- Mobile screen compatible.
 
 ## Limitations
 
