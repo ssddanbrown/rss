@@ -15,6 +15,7 @@ mkdir -p /app/storage/framework/views
 php artisan storage:link
 php artisan migrate --force
 php artisan config:cache
+php artisan view:cache
 
 # Set runtime permissions
 chown -R www-data:www-data /app
