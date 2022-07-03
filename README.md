@@ -148,6 +148,11 @@ APP_CONFIG_FILE=/app/storage/feeds.txt
 # when posts are fetched.
 # Defaults to true.
 APP_LOAD_POST_THUMBNAILS=true
+
+# The number of minutes before a feed is considered outdated and
+# therefore should be updated upon request.
+# This effectively has a minimum of 5 minutes in the docker setup.
+APP_FEED_UPDATE_FREQUENCY=60
 ```
 
 ## Manual Install

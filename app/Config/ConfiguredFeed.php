@@ -32,7 +32,8 @@ class ConfiguredFeed implements JsonSerializable
 
     public function isOutdated(): bool
     {
-        $expiry = time() - 3600;
+        $configFrequency = intval(config('app.feed_update_frequency'));
+        $expiry = time() - intval($configFrequency * 60);
         return $this->feed->last_fetched_at <= $expiry;
     }
 

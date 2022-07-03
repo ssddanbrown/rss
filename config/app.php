@@ -46,6 +46,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Feed Update Frequency
+    |--------------------------------------------------------------------------
+    |
+    | This value specifies how often a feed should be updated. This is not a
+    | specific guarantee of update on this interval but instead the age in
+    | minutes of when a feed would be considered outdated.
+    |
+    */
+
+    'feed_update_frequency' => env('APP_FEED_UPDATE_FREQUENCY', 60),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
