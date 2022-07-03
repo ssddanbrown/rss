@@ -20,31 +20,30 @@ FROM ubuntu:22.04
 COPY . /app
 WORKDIR /app
 
-# Install dependancies
+# Install dependencies
 ARG DEBIAN_FRONTEND=noninteractive
-RUN set -xe
-RUN apt-get update -yqq
-RUN apt-get install curl supervisor nginx cron php8.1-cli php8.1-fpm php8.1-cgi php8.1-common php8.1-curl php8.1-mbstring php8.1-xml php8.1-zip php8.1-gd php8.1-sqlite3 php8.1-bcmath -yqq
+RUN set -xe && \
+    apt-get update -yqq && \
+    apt-get install curl supervisor nginx cron php8.1-cli php8.1-fpm php8.1-cgi php8.1-common \
+                    php8.1-curl php8.1-mbstring php8.1-xml php8.1-zip php8.1-gd php8.1-sqlite3 php8.1-bcmath -yqq
 
 # Copy requirements from other containers
 COPY --from=0 /app/public/build /app/public/build
 COPY --from=1 /app/vendor /app/vendor
 
-# Set permissions and set app key
-COPY docker/.env.container /app/.env
-RUN php artisan key:generate
-RUN php artisan route:cache
-
-# Configure nginx
-COPY docker/nginx.conf /etc/nginx/sites-enabled/grabby.conf
-RUN rm /etc/nginx/sites-enabled/default
-EXPOSE 80/tcp
-
-# Configure cron
-COPY docker/cron /etc/cron.d/grabby-cron
-RUN chmod 0644 /etc/cron.d/grabby-cron
+# Make required files changes using passed-though files
+# Then setup crontab
+# Then run any app-side commands
+RUN cp docker/.env.container /app/.env && \
+    cp docker/nginx.conf /etc/nginx/sites-enabled/rss.conf && \
+    cp docker/cron /etc/cron.d/rss-cron && \
+    rm /etc/nginx/sites-enabled/default && \
+    chmod +x /app/docker/run.sh && \
+    chmod 0644 /etc/cron.d/rss-cron && \
+    crontab /etc/cron.d/rss-cron && \
+    php artisan key:generate && \
+    php artisan route:cache
 
 # Run our process wrapper script
-RUN chmod +x /app/docker/run.sh
+EXPOSE 80/tcp
 CMD /app/docker/run.sh
-
