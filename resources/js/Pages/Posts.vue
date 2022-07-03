@@ -13,7 +13,7 @@
             <div class="md:max-w-xs w-full hidden md:block" :class="{'!block': mobileShowOptions}">
 
                 <div v-if="search || tag || feed || page !== 1" class="mb-8">
-                    <Link href="/" class="font-bold text-black dark:text-gray-400">&laquo; Back to home</Link>
+                    <Link href="./" class="font-bold text-black dark:text-gray-400">&laquo; Back to home</Link>
                 </div>
 
                 <div class="mb-8">
@@ -50,7 +50,7 @@
 
                 <div class="flex items-center justify-between mb-2">
                     <h2 class="font-bold text-black dark:text-gray-400">
-                        <Link href="/">Posts</Link>
+                        <Link href="./">Posts</Link>
                         <span v-if="tag"> / #{{ tag }}</span>
                         <span v-if="feed && feeds.length === 1"> / <span :style="{ color: feeds[0].color}">{{ feeds[0].name }}</span></span>
                         <span v-if="search"> ?= {{ search }}</span>

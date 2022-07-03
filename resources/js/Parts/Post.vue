@@ -5,7 +5,7 @@
         dark:hover:border-gray-700 dark:hover:bg-gray-800 rounded hover:relative hover:z-20 -my-px">
 
         <div class="flex text-sm text-gray-600 dark:text-gray-400 items-center flex-wrap">
-            <Link :href="`/f/${encodeURIComponent(encodeURIComponent(post.feed.url))}`" :style="{color: post.feed.color}" class="font-bold text-xs block">{{ post.feed.name }}</Link>
+            <Link :href="`f/${encodeURIComponent(encodeURIComponent(post.feed.url))}`" :style="{color: post.feed.color}" class="font-bold text-xs block">{{ post.feed.name }}</Link>
             <div class="px-2">&bull;</div>
             <div class="italic" :title="isoTime">About {{ relatedPublishedTime }} ago</div>
             <div class="px-2 hidden md:block">&bull;</div>
@@ -17,7 +17,7 @@
         <div :class="{'flex items-center gap-5': formatList && post.thumbnail}">
             <div v-if="post.thumbnail && !formatCompact" :class="{'w-32': formatList}">
                 <a :href="post.url" target="_blank" class="block overflow-hidden rounded my-2 border dark:border-black">
-                    <img :src="`/storage/${post.thumbnail}`"
+                    <img :src="`storage/${post.thumbnail}`"
                          loading="lazy"
                          class="w-full h-32 md:h-48 lg:h-64 object-cover saturate-50"
                          :class="{'h-16 md:h-16 lg:h-16': formatList}"

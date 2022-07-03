@@ -1,5 +1,5 @@
 <template>
-    <Link :href="`/t/${urlTag}`"
+    <Link :href="`t/${urlTag}`"
           class="inline-block">{{ tag }}</Link>
 </template>
 

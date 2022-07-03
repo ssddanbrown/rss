@@ -1,7 +1,7 @@
 <template>
     <div class="py-1 my-2">
         <h4 class="font-bold text-black dark:text-gray-400" :style="{color: feed.color}">
-            <Link :href="`/f/${encodeURIComponent(encodeURIComponent(feed.url))}`">{{ feed.name }}</Link>
+            <Link :href="`f/${encodeURIComponent(encodeURIComponent(feed.url))}`">{{ feed.name }}</Link>
         </h4>
         <div class="font-mono text-gray-600 dark:text-gray-500 text-xs my-1 overflow-ellipsis whitespace-nowrap w-full overflow-hidden">{{ feed.url }}</div>
         <div class="flex gap-1 text-gray-600 dark:text-gray-500 text-sm flex-wrap">
@@ -44,7 +44,7 @@ export default {
             window.location.reload();
         },
         async pollFeedStatus() {
-            const resp = await axios.get(`/feed`, {params: {url: this.feed.url}});
+            const resp = await axios.get(`feed`, {params: {url: this.feed.url}});
             if (resp?.data?.outdated) {
                 this.reloadingPoll = setTimeout(this.pollFeedStatus.bind(this), 3000);
             } else {

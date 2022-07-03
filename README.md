@@ -155,6 +155,25 @@ APP_LOAD_POST_THUMBNAILS=true
 APP_FEED_UPDATE_FREQUENCY=60
 ```
 
+## Usage Behind a Reverse Proxy
+
+When using behind a reverse proxy, ensure common forwarding headers are set so that the application can properly detect the right host and path to use.
+The below shows a sub-path proxy config location block for nginx. Note the `X-Forwarded-Prefix` header to make the application aware of sub-path usage.
+
+```nginx
+location /rss/ {
+    proxy_pass http://container-ip:80/;
+    proxy_set_header Host              $host;
+    proxy_set_header X-Real-IP         $remote_addr;
+    proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host  $host;
+    proxy_set_header X-Forwarded-Port  $server_port;
+    proxy_set_header X-Forwarded-Prefix "/rss/";
+    proxy_redirect off;
+}
+```
+
 ## Manual Install
 
 Manually installing the application is not recommended unless you are performing development work on the project.
