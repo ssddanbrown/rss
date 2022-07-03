@@ -9,12 +9,13 @@ A simple, opinionated, RSS feed aggregator.
 The following features are built into the application:
 
 - Supports RSS and ATOM formats.
-- Regular auto-fetching of RSS feeds (Every hour).
+- Regular auto-fetching of RSS feeds.
+  - Every hour by default, configurable down to 5 mins. 
 - Custom feed names and colors.
 - Feed-based tags for categorization.
 - 3 different post layout modes (card, list, compact).
 - Fetching of page open-graph images.
-- Managed via a single plaintext file.
+- Feeds managed via a single plaintext file.
 - System-based dark/light theme.
 - Post title/description search.
 - Ready-to-use docker image.
@@ -27,9 +28,11 @@ This is not a list of planned features. Please see the [Low Maintenance Project]
 
 - No import of full post/article content.
 - No feed management via the UI.
-- No user authentication or management system.
+- No user system or user management system.
+- No authentication or authorization built-in.
 - No customization, extension or plugin system.
-- No organisation upon feed-level tagging.
+- No organisation upon simple feed-level tagging.
+- Error handling is limited and will likely not alert clearly upon issue.
 
 Upon the above, it's quite likely you'll come across issues. This project was created to meet a personal need while learning some new technologies. Much of the logic is custom written instead of using battle-tested libraries. 
 
