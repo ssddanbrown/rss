@@ -80,7 +80,7 @@ docker run -d \
 
 #### Docker Compose Example
 
-In the below `docker-compose.yml` example, the application will be accessible at http://localhost:8080 on the host and the files would be stored in a `/home/barry/rss` directory. In this example, feeds would be configured in a `/home/barry/rss/feeds.txt` file.
+In the below `docker-compose.yml` example, the application will be accessible at http://localhost:8080 on the host and the files would be stored in a `./rss-files` directory relative to the docker-compose.yml file. In this example, feeds would be configured in a `./rss-files/feeds.txt` file.
 
 ```yml
 ---
@@ -92,7 +92,7 @@ services:
         environment:
             - APP_NAME=RSS
         volumes:
-            - /home/barry/rss:/app/storage
+            - ./rss-files:/app/storage
         ports:
             - "8080:80"
         restart: unless-stopped
