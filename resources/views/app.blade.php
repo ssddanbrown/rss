@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ config('app.name') }}</title>
-
     <base href="{{ asset('') }}">
+    <link rel="icon" type="image/png" sizes="32x32"  href="icons/rss-32.png">
+    <link rel="icon" type="image/png" sizes="128x128"  href="icons/rss-128.png">
 
     @if(!app()->runningUnitTests())
         @vite(['resources/css/app.css', 'resources/js/app.js'])
