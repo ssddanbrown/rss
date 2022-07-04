@@ -71,8 +71,8 @@
                 </div>
 
                 <div class="py-2 flex">
-                    <Link v-if="page > 1" href="" :data="{page: page-1}" class="cursor-pointer text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 font-bold py-2 hover:text-black">&laquo; Previous Page</Link>
-                    <Link v-if="posts.length === 100" href="" :data="{page: page + 1}" class="ml-auto cursor-pointer text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 font-bold py-2 hover:text-black">Next Page &raquo;</Link>
+                    <Link v-if="page > 1" :href="pagePath" :data="{page: page-1}" class="cursor-pointer text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 font-bold py-2 hover:text-black">&laquo; Previous Page</Link>
+                    <Link v-if="posts.length === 100" :href="pagePath" :data="{page: page + 1}" class="ml-auto cursor-pointer text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 font-bold py-2 hover:text-black">Next Page &raquo;</Link>
                 </div>
 
             </div>
@@ -117,6 +117,9 @@
                 }
 
                 return Object.keys(tags).sort();
+            },
+            pagePath() {
+                return window.location.pathname;
             }
         },
         data() {
@@ -128,7 +131,7 @@
         },
         methods: {
             submitSearch() {
-                this.$inertia.visit(``, {
+                this.$inertia.visit(this.pagePath, {
                     data: {query: this.searchInputVal}
                 });
             },

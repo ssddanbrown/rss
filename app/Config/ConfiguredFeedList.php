@@ -55,6 +55,6 @@ class ConfiguredFeedList implements IteratorAggregate, JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return $this->feeds;
+        return array_values($this->feeds);
     }
 }
