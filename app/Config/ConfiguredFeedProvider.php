@@ -65,7 +65,7 @@ class ConfiguredFeedProvider
 
     protected function updateLastAccessedForFeeds(array $feeds)
     {
-        $ids = array_map(fn(ConfiguredFeed $feed) => $feed->feed->id, $feeds);
+        $ids = array_map(fn (ConfiguredFeed $feed) => $feed->feed->id, $feeds);
 
         Feed::query()->whereIn('id', $ids)->update([
             'last_accessed_at' => now()

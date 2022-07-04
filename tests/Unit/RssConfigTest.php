@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class RssConfigTest extends TestCase
 {
-
     public function test_get_feed_urls()
     {
         $config = new RssConfig();

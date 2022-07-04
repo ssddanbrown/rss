@@ -4,7 +4,6 @@ namespace App\Config;
 
 class RssConfig
 {
-
     /**
      * The configured feeds.
      * Array keys are the feed URLs and values are arrays of tags as strings.
@@ -125,7 +124,7 @@ class RssConfig
             }
 
             $name = str_replace('_', ' ', $name);
-            $tags = array_filter(array_slice($parts, 2), fn($str) => str_starts_with($str, '#'));
+            $tags = array_filter(array_slice($parts, 2), fn ($str) => str_starts_with($str, '#'));
 
             if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
                 $this->addFeed($url, $name, $tags, $color);
@@ -173,5 +172,4 @@ class RssConfig
 
         $this->parseFromString($configStr);
     }
-
 }

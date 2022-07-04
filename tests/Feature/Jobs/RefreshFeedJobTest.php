@@ -71,7 +71,5 @@ END)
         dispatch(new RefreshFeedJob($feedB));
 
         Queue::assertPushed(RefreshFeedJob::class, 2);
-
     }
-
 }

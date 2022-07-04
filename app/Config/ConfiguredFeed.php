@@ -16,7 +16,8 @@ class ConfiguredFeed implements JsonSerializable
         public string $url,
         public string $color,
         public array $tags,
-    ) {}
+    ) {
+    }
 
     public function jsonSerialize(): mixed
     {

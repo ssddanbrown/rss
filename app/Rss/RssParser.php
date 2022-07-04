@@ -9,7 +9,6 @@ use SimpleXMLElement;
 
 class RssParser
 {
-
     /**
      * @return Post[]
      */

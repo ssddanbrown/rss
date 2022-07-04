@@ -9,7 +9,8 @@ class FeedController extends Controller
 {
     public function __construct(
         protected ConfiguredFeedProvider $feedProvider,
-    ) {}
+    ) {
+    }
 
     public function get(Request $request)
     {

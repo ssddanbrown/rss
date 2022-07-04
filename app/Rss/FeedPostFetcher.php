@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Http;
 
 class FeedPostFetcher
 {
-
     public function __construct(
         protected RssParser $rssParser
-    ) {}
+    ) {
+    }
 
     /**
      * @return Post[]
@@ -32,5 +32,4 @@ class FeedPostFetcher
 
         return $this->rssParser->rssDataToPosts($rssData);
     }
-
 }

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PostThumbnailFetcher
 {
-
     public function fetchAndStoreForPost(Post $post): bool
     {
         $imageUrl = $this->getThumbLinkFromUrl($post->url);
@@ -88,5 +87,4 @@ class PostThumbnailFetcher
 
         return $link;
     }
-
 }

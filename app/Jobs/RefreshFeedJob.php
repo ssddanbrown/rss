@@ -13,7 +13,10 @@ use Illuminate\Queue\SerializesModels;
 
 class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * How long this unique lock exists for this kind of job.
@@ -27,7 +30,8 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
      */
     public function __construct(
         protected Feed $feed
-    ) {}
+    ) {
+    }
 
     /**
      * Execute the job.

@@ -11,11 +11,11 @@ use Inertia\Inertia;
 
 class PostViewController extends Controller
 {
-
     public function __construct(
         protected PostProvider $postProvider,
         protected ConfiguredFeedProvider $feedProvider,
-    ) {}
+    ) {
+    }
 
     public function home(Request $request)
     {
@@ -50,7 +50,7 @@ class PostViewController extends Controller
         $subFilter = null;
 
         if ($query) {
-            $subFilter = function(Builder $where) use ($query) {
+            $subFilter = function (Builder $where) use ($query) {
                 $where->where('title', 'like', '%' . $query . '%')
                     ->orWhere('description', 'like', '%' . $query . '%');
             };

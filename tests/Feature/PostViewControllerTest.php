@@ -24,7 +24,7 @@ class PostViewControllerTest extends TestCase
     {
         // Standard main page
         $resp = $this->get('/');
-        $resp->assertInertia(function(Assert $page) {
+        $resp->assertInertia(function (Assert $page) {
             $page->component('Posts');
             $page->has('feeds', 3);
             $page->has('posts', 100);
@@ -37,7 +37,7 @@ class PostViewControllerTest extends TestCase
 
         // Pagination test
         $resp = $this->get('/?page=2');
-        $resp->assertInertia(function(Assert $page) {
+        $resp->assertInertia(function (Assert $page) {
             $page->component('Posts');
             $page->has('feeds', 3);
             $page->has('posts', 50);
@@ -46,7 +46,7 @@ class PostViewControllerTest extends TestCase
 
         // Search test
         $resp = $this->get('/?query=Special+title+for');
-        $resp->assertInertia(function(Assert $page) {
+        $resp->assertInertia(function (Assert $page) {
             $page->component('Posts');
             $page->has('feeds', 3);
             $page->has('posts', 3);
@@ -57,7 +57,7 @@ class PostViewControllerTest extends TestCase
     public function test_tag()
     {
         $resp = $this->get('/t/News');
-        $resp->assertInertia(function(Assert $page) {
+        $resp->assertInertia(function (Assert $page) {
             $page->component('Posts');
             $page->has('feeds', 2);
             $page->has('posts', 100);
@@ -70,7 +70,7 @@ class PostViewControllerTest extends TestCase
     public function test_feed()
     {
         $resp = $this->get('/f/' . urlencode(urlencode('http://example.com/b.xml')));
-        $resp->assertInertia(function(Assert $page) {
+        $resp->assertInertia(function (Assert $page) {
             $page->component('Posts');
             $page->has('feeds', 1);
             $page->has('posts', 50);

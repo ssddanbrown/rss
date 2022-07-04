@@ -19,7 +19,8 @@ class RssParserTest extends TestCase
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0">
   <channel>
@@ -57,7 +58,8 @@ END
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0">
   <channel>
@@ -86,7 +88,8 @@ END
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0">
   <channel>
@@ -102,7 +105,8 @@ END
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0">
   <channel>
@@ -139,7 +143,8 @@ END
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0">
   <channel>
@@ -162,7 +167,8 @@ END
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text" xml:lang="en">Example Atom Feed</title>
@@ -210,7 +216,8 @@ END
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text" xml:lang="en">Example Atom Feed</title>
@@ -237,7 +244,8 @@ END
     {
         $parser = new RssParser();
 
-        $posts = $parser->rssDataToPosts(<<<END
+        $posts = $parser->rssDataToPosts(
+            <<<END
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text" xml:lang="en">Example Atom Feed</title>
@@ -259,5 +267,4 @@ END
 
         $this->assertEquals("Example Post A Summary", $posts[0]->description);
     }
-
 }

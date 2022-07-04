@@ -230,6 +230,20 @@ This is a low maintenance project. The scope of features and support are purpose
 
 Issues and PRs raised for bugs are perfectly fine assuming they don't significantly increase the scope of the project. Please don't open PRs for new features that expand the scope.
 
+## Development
+
+This project uses [PHPUnit](https://phpunit.de/) for testing. Tests will use their own in-memory SQLite instance. Tests can be ran like so:
+
+```shell
+./vendor/bin/phpunit
+```
+
+[PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) is used for formatting. This can be ran like so:
+
+```bash
+./vendor/bin/php-cs-fixer fix
+```
+
 ## Attribution
 
 This is primarily built using the following great projects and technologies:

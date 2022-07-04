@@ -10,7 +10,6 @@ use Tests\TestCase;
 
 class ConfiguredFeedTest extends TestCase
 {
-
     public function test_is_outdated_can_be_controlled_by_config()
     {
         $now = time();
@@ -53,5 +52,4 @@ class ConfiguredFeedTest extends TestCase
         $configuredFeed->startReloading();
         Queue::assertPushed(RefreshFeedJob::class);
     }
-
 }

@@ -8,7 +8,6 @@ use App\Models\Post;
 
 trait GeneratesTestData
 {
-
     protected function generateStableTestData()
     {
         $config = <<<END
@@ -43,5 +42,4 @@ END;
             'feeds' => $feeds,
         ];
     }
-
 }

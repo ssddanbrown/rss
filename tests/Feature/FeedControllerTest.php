@@ -36,5 +36,4 @@ class FeedControllerTest extends TestCase
         $resp = $this->get('/feed?url=' . urlencode('http://example.com/abc.xml'));
         $resp->assertNotFound();
     }
-
 }

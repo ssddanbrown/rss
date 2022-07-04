@@ -16,5 +16,4 @@ class Feed extends Model
     {
         return $this->hasMany(Post::class);
     }
-
 }
