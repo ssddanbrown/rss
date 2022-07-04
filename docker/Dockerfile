@@ -8,7 +8,7 @@ RUN npm ci && npm run build
 FROM composer:2
 COPY . /app
 WORKDIR /app
-RUN composer install
+RUN composer install --no-dev
 
 ######################
 # Main app container #
