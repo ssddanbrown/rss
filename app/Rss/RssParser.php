@@ -57,7 +57,7 @@ class RssParser
     {
         $date = DateTime::createFromFormat(DateTime::RSS, $item->pubDate ?? '');
         $item = [
-            'title' => substr(strval($item->title ?? ''), 0, 250),
+            'title' => mb_substr(strval($item->title ?? ''), 0, 250),
             'description' => $this->formatDescription(strval($item->description) ?: ''),
             'url' => strval($item->link ?? ''),
             'guid' => strval($item->guid ?? ''),
@@ -77,7 +77,7 @@ class RssParser
         $decoded = preg_replace('/\s+/', ' ', $decoded);
 
         if (strlen($decoded) > 200) {
-            return substr($decoded, 0, 200) . '...';
+            return mb_substr($decoded, 0, 200) . '...';
         }
 
         return $decoded;
@@ -87,7 +87,7 @@ class RssParser
     {
         $date = new DateTime(strval($item->published ?? $item->updated ?? ''));
         return [
-            'title' => html_entity_decode(substr(strval($item->title ?? ''), 0, 250)),
+            'title' => html_entity_decode(mb_substr(strval($item->title ?? ''), 0, 250)),
             'description' => $this->formatDescription(strval($item->summary) ?: strval($item->content) ?: ''),
             'url' => $item->link ? strval($item->link->attributes()['href']) : '',
             'guid' => strval($item->id ?? ''),
