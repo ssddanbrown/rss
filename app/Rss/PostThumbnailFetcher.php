@@ -37,7 +37,7 @@ class PostThumbnailFetcher
      */
     protected function downloadImageFromUrl(string $url): ?array
     {
-        $imageResponse = Http::timeout(5)->get($url);
+        $imageResponse = Http::timeout(5)->withUserAgent('rss/4.5.6')->get($url);
         if (!$imageResponse->successful()) {
             return null;
         }
@@ -61,12 +61,12 @@ class PostThumbnailFetcher
 
     protected function getThumbLinkFromUrl(string $url): string
     {
-        $pageResponse = Http::timeout(5)->get($url);
+        $pageResponse = Http::timeout(5)->withUserAgent('rss/4.5.6')->get($url);
         if (!$pageResponse->successful()) {
             return '';
         }
 
-        $postHead = substr($pageResponse->body(), 0, 100000);
+        $postHead = substr($pageResponse->body(), 0, 1000000);
         $metaMatches = [];
         $metaPattern = '/<meta [^<>]*property=["\']og:image["\'].*?>/';
         if (!preg_match($metaPattern, $postHead, $metaMatches)) {
