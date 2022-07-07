@@ -18,7 +18,7 @@ class FeedPostFetcher
      */
     public function fetchForFeed(Feed $feed): array
     {
-        $feedResponse = Http::timeout(5)->get($feed->url);
+        $feedResponse = Http::timeout(10)->withUserAgent('rss/4.5.6')->get($feed->url);
         if (!$feedResponse->successful()) {
             return [];
         }

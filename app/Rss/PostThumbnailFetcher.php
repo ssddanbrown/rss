@@ -37,7 +37,7 @@ class PostThumbnailFetcher
      */
     protected function downloadImageFromUrl(string $url): ?array
     {
-        $imageResponse = Http::timeout(5)->withUserAgent('rss/4.5.6')->get($url);
+        $imageResponse = Http::timeout(10)->withUserAgent('rss/4.5.6')->get($url);
         if (!$imageResponse->successful()) {
             return null;
         }
@@ -61,7 +61,7 @@ class PostThumbnailFetcher
 
     protected function getThumbLinkFromUrl(string $url): string
     {
-        $pageResponse = Http::timeout(5)->withUserAgent('rss/4.5.6')->get($url);
+        $pageResponse = Http::timeout(10)->withUserAgent('rss/4.5.6')->get($url);
         if (!$pageResponse->successful()) {
             return '';
         }
