@@ -79,7 +79,7 @@ class PostThumbnailFetcher
             return '';
         }
 
-        $link = $linkMatches[1];
+        $link = html_entity_decode($linkMatches[1]);
 
         if (!str_starts_with($link, 'https://') && !str_starts_with($link, 'http://')) {
             return '';
