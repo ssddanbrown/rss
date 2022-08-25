@@ -20,6 +20,7 @@ The following features are built into the application:
 - Post title/description search.
 - Ready-to-use docker image.
 - Mobile screen compatible.
+- Built-in support to prune old post data.
 
 ## Limitations
 
@@ -156,6 +157,13 @@ APP_LOAD_POST_THUMBNAILS=true
 # therefore should be updated upon request.
 # This effectively has a minimum of 5 minutes in the docker setup.
 APP_FEED_UPDATE_FREQUENCY=60
+
+# The number of days to wait before a post should be pruned.
+# Uses the post published_at time to determine lifetime.
+# Setting this to false disables any auto-pruning.
+# If active, pruning will auto-run daily.
+# Defaults to false (No pruning) 
+APP_PRUNE_POSTS_AFTER_DAYS=30
 ```
 
 ## Usage Behind a Reverse Proxy
