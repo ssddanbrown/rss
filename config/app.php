@@ -57,6 +57,19 @@ return [
 
     'feed_update_frequency' => env('APP_FEED_UPDATE_FREQUENCY', 60),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Prune Posts After Days
+    |--------------------------------------------------------------------------
+    |
+    | How many days old posts should exist before they're pruned from the system.
+    | Setting this to false will disable any auto-pruning otherwise pruning
+    | will run on a daily basis.
+    |
+    */
+
+    'prune_posts_after_days' => env('APP_PRUNE_POSTS_AFTER_DAYS', false),
+
 
     /*
     |--------------------------------------------------------------------------
