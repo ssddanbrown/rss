@@ -78,4 +78,17 @@ class PrunePostsCommandTest extends TestCase
 
         $this->assertEquals(1, Post::query()->count());
     }
+
+    public function test_command_deletes_all_posts_in_range()
+    {
+        Post::factory(500)->create(['published_at' => time() - (86400 * 10.1)]);
+
+        $this->assertEquals(500, Post::query()->count());
+
+        $this->artisan('rss:prune-posts --days=3')
+            ->expectsConfirmation('This will delete all posts older than 3 day(s). Do you want to continue?', 'yes')
+            ->assertExitCode(0);
+
+        $this->assertEquals(0, Post::query()->count());
+    }
 }

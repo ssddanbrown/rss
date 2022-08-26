@@ -16,23 +16,29 @@ class PostPruner
     {
         $day = 86400;
         $oldestAcceptable = time() - ($retentionDays * $day);
-        $deleteCount = 0;
+        $ids = [];
 
         Post::query()
             ->where('published_at', '<', $oldestAcceptable)
             ->select(['id', 'thumbnail'])
-            ->chunk(250, function (Collection $posts) use (&$deleteCount) {
-                $deleteCount += $posts->count();
-                $this->deletePosts($posts);
+            ->chunk(250, function (Collection $posts) use (&$ids) {
+                array_push($ids, ...$posts->pluck('id')->all());
+                $this->deletePostsThumbnails($posts);
             });
 
-        return $deleteCount;
+        foreach (array_chunk($ids, 250) as $idChunk) {
+            Post::query()
+                ->whereIn('id', $idChunk)
+                ->delete();
+        }
+
+        return count($ids);
     }
 
     /**
      * @param Collection<Post> $posts
      */
-    protected function deletePosts(Collection $posts)
+    protected function deletePostsThumbnails(Collection $posts)
     {
         $storage = Storage::disk('public');
 
@@ -41,9 +47,5 @@ class PostPruner
                 $storage->delete($post->thumbnail);
             }
         }
-
-        Post::query()
-            ->whereIn('id', $posts->pluck('id')->all())
-            ->delete();
     }
 }
