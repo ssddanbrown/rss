@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp, Link } from '@inertiajs/inertia-vue3'
+import { createInertiaApp, Link } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 // Monkey-Patching of 'URL' constructor to use URL set via the `<base>` tag since
