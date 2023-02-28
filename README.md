@@ -252,6 +252,12 @@ This project uses [PHPUnit](https://phpunit.de/) for testing. Tests will use the
 ./vendor/bin/php-cs-fixer fix
 ```
 
+A command is built-in to test RSS feeds where needed. This will just provide a boolean yes/no fetchable status result, but you can run it with debugging with breakpoints for further diagnosis:
+
+```bash
+php artisan rss:test-feed https://danb.me/blog/index.xml
+```
+
 ## Attribution
 
 This is primarily built using the following great projects and technologies:
