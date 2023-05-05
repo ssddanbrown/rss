@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
-class PostThumbnailFetcherTest extends TestCase
+final class PostThumbnailFetcherTest extends TestCase
 {
     use RefreshDatabase;
 

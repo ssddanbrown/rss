@@ -8,7 +8,7 @@ use Inertia\Testing\AssertableInertia as Assert;
 use Tests\GeneratesTestData;
 use Tests\TestCase;
 
-class FeedControllerTest extends TestCase
+final class FeedControllerTest extends TestCase
 {
     use RefreshDatabase;
     use GeneratesTestData;

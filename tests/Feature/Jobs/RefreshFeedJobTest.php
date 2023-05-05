@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
-class RefreshFeedJobTest extends TestCase
+final class RefreshFeedJobTest extends TestCase
 {
     use RefreshDatabase;
 

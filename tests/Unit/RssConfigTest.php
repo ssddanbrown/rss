@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Config\RssConfig;
 use PHPUnit\Framework\TestCase;
 
-class RssConfigTest extends TestCase
+final class RssConfigTest extends TestCase
 {
     public function test_get_feed_urls(): void
     {

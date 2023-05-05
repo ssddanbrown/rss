@@ -9,7 +9,7 @@ use Storage;
 use Tests\GeneratesTestData;
 use Tests\TestCase;
 
-class PrunePostsCommandTest extends TestCase
+final class PrunePostsCommandTest extends TestCase
 {
     use RefreshDatabase;
     use GeneratesTestData;

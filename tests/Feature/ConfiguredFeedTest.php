@@ -8,7 +8,7 @@ use App\Models\Feed;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
-class ConfiguredFeedTest extends TestCase
+final class ConfiguredFeedTest extends TestCase
 {
     public function test_is_outdated_can_be_controlled_by_config(): void
     {

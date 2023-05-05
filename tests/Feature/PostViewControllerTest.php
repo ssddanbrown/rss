@@ -8,7 +8,7 @@ use Inertia\Testing\AssertableInertia as Assert;
 use Tests\GeneratesTestData;
 use Tests\TestCase;
 
-class PostViewControllerTest extends TestCase
+final class PostViewControllerTest extends TestCase
 {
     use RefreshDatabase;
     use GeneratesTestData;

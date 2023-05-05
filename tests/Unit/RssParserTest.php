@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Rss\RssParser;
 use Tests\TestCase;
 
-class RssParserTest extends TestCase
+final class RssParserTest extends TestCase
 {
     public function test_it_returns_an_array(): void
     {
