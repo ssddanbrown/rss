@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Config\ConfiguredFeedProvider;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class FeedController extends Controller
     ) {
     }
 
-    public function get(Request $request)
+    public function get(Request $request): JsonResponse
     {
         $url = $request->get('url', '');
         $feed = $this->feedProvider->get($url);
