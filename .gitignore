@@ -1,4 +1,5 @@
 /feeds.txt
+/feeds.txt.*
 /node_modules
 /public/hot
 /public/storage
@@ -10,6 +11,7 @@
 .env
 .env.backup
 /.phpunit.cache
+/.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
