@@ -15,7 +15,7 @@ class PostFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $url = $this->faker->url() . '?query=' . random_int(0, 1000);
         return [

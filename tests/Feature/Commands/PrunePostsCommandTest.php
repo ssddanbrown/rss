@@ -14,7 +14,7 @@ class PrunePostsCommandTest extends TestCase
     use RefreshDatabase;
     use GeneratesTestData;
 
-    public function test_command_deletes_posts_older_than_days_given()
+    public function test_command_deletes_posts_older_than_days_given(): void
     {
         $now = time();
         $day = 86400;
@@ -32,7 +32,7 @@ class PrunePostsCommandTest extends TestCase
         $this->assertEquals(13, Post::query()->count());
     }
 
-    public function test_command_deletes_post_thumbnail_if_existing()
+    public function test_command_deletes_post_thumbnail_if_existing(): void
     {
         $post = Post::factory()->createOne(['published_at' => 50]);
         $thumb = 'thumbs/' . Str::random() . '.png';
@@ -50,7 +50,7 @@ class PrunePostsCommandTest extends TestCase
         $this->assertFalse(Storage::disk('public')->exists($thumb));
     }
 
-    public function test_command_defaults_to_config_option_time()
+    public function test_command_defaults_to_config_option_time(): void
     {
         Post::factory()->createOne(['published_at' => time() - (86400 * 10.1)]);
         Post::factory()->createOne(['published_at' => time() - (86400 * 9.5)]);
@@ -65,7 +65,7 @@ class PrunePostsCommandTest extends TestCase
         $this->assertEquals(1, Post::query()->count());
     }
 
-    public function test_command_defaults_to_no_action_if_config_false()
+    public function test_command_defaults_to_no_action_if_config_false(): void
     {
         Post::factory()->createOne(['published_at' => time() - (86400 * 10.1)]);
         config()->set('app.prune_posts_after_days', false);
@@ -79,7 +79,7 @@ class PrunePostsCommandTest extends TestCase
         $this->assertEquals(1, Post::query()->count());
     }
 
-    public function test_command_deletes_all_posts_in_range()
+    public function test_command_deletes_all_posts_in_range(): void
     {
         Post::factory(500)->create(['published_at' => time() - (86400 * 10.1)]);
 

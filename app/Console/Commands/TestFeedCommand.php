@@ -27,7 +27,7 @@ class TestFeedCommand extends Command
      *
      * @return int
      */
-    public function handle(FeedPostFetcher $postFetcher)
+    public function handle(FeedPostFetcher $postFetcher): int
     {
         $url = $this->argument('url');
 

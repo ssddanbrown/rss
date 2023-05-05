@@ -20,7 +20,7 @@ class PostViewControllerTest extends TestCase
         $this->generateStableTestData();
     }
 
-    public function test_home()
+    public function test_home(): void
     {
         // Standard main page
         $resp = $this->get('/');
@@ -54,7 +54,7 @@ class PostViewControllerTest extends TestCase
         });
     }
 
-    public function test_tag()
+    public function test_tag(): void
     {
         $resp = $this->get('/t/News');
         $resp->assertInertia(function (Assert $page) {
@@ -67,7 +67,7 @@ class PostViewControllerTest extends TestCase
         });
     }
 
-    public function test_feed()
+    public function test_feed(): void
     {
         $resp = $this->get('/f/' . urlencode(urlencode('http://example.com/b.xml')));
         $resp->assertInertia(function (Assert $page) {

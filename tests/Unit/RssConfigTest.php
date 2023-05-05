@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class RssConfigTest extends TestCase
 {
-    public function test_get_feed_urls()
+    public function test_get_feed_urls(): void
     {
         $config = new RssConfig();
         $config->addFeed('https://example.com', 'example a');
@@ -19,7 +19,7 @@ class RssConfigTest extends TestCase
         $this->assertEquals('https://example-b.com/cats?test=abc#okay', $urls[1]);
     }
 
-    public function test_remove_feed_url()
+    public function test_remove_feed_url(): void
     {
         $config = new RssConfig();
         $config->addFeed('https://example.com', 'a');
@@ -33,7 +33,7 @@ class RssConfigTest extends TestCase
         $this->assertCount(1, $config->getFeedUrls());
     }
 
-    public function test_to_string()
+    public function test_to_string(): void
     {
         $config = new RssConfig();
         $config->addFeed('https://example.com', 'a', ['#cat', '#dog']);
@@ -43,7 +43,7 @@ class RssConfigTest extends TestCase
         $this->assertEquals($expected, $config->toString());
     }
 
-    public function test_parse_from_string()
+    public function test_parse_from_string(): void
     {
         $config = new RssConfig();
         $config->parseFromString("
@@ -66,7 +66,7 @@ http://beans.com/feed.xml#food d_is_cool #cooking
     }
 
 
-    public function test_encode_for_url_without_compression()
+    public function test_encode_for_url_without_compression(): void
     {
         $config = new RssConfig();
         $config->addFeed('https://a.com', 'a', ['#a', '#b']);
@@ -75,7 +75,7 @@ http://beans.com/feed.xml#food d_is_cool #cooking
         $this->assertEquals($expected, $config->encodeForUrl());
     }
 
-    public function test_encode_for_url_with_compression()
+    public function test_encode_for_url_with_compression(): void
     {
         $config = new RssConfig();
         $config->addFeed('https://a.com', 'a', ['#a', '#b']);
@@ -85,7 +85,7 @@ http://beans.com/feed.xml#food d_is_cool #cooking
         $this->assertEquals($expected, $config->encodeForUrl());
     }
 
-    public function test_decode_from_url_without_compression()
+    public function test_decode_from_url_without_compression(): void
     {
         $config = new RssConfig();
         $config->decodeFromUrl('thttps%3A%2F%2Fa.com+a+%23a+%23b%0Ahttps%3A%2F%2Fb.com+b+%23a+%23b');
@@ -97,7 +97,7 @@ http://beans.com/feed.xml#food d_is_cool #cooking
         $this->assertEquals('b', $config->getName('https://b.com'));
     }
 
-    public function test_decode_from_url_with_compression()
+    public function test_decode_from_url_with_compression(): void
     {
         $config = new RssConfig();
         $config->decodeFromUrl('ceJzLKCkpKLbS10/US87PVUhUUAaiJK4MqGgSWDQJIgoAKUYM0w==');
@@ -109,7 +109,7 @@ http://beans.com/feed.xml#food d_is_cool #cooking
         $this->assertEquals('b', $config->getName('https://b.com'));
     }
 
-    public function test_decode_from_url_with_empty_input()
+    public function test_decode_from_url_with_empty_input(): void
     {
         $config = new RssConfig();
         $config->decodeFromUrl('');

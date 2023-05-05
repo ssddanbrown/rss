@@ -12,7 +12,7 @@ class PostThumbnailFetcherTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_successful_fetch()
+    public function test_successful_fetch(): void
     {
         $imageData = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==');
         Http::fake([
@@ -41,7 +41,7 @@ END),
         unlink($expectedPath);
     }
 
-    public function test_html_encoding_in_opengraph_url_is_decoded()
+    public function test_html_encoding_in_opengraph_url_is_decoded(): void
     {
         $imageData = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==');
         Http::fake([

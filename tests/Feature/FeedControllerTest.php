@@ -19,7 +19,7 @@ class FeedControllerTest extends TestCase
         $this->generateStableTestData();
     }
 
-    public function test_get_feed()
+    public function test_get_feed(): void
     {
         $resp = $this->get('/feed?url=' . urlencode('http://example.com/a.xml'));
         $resp->assertOk();
@@ -31,7 +31,7 @@ class FeedControllerTest extends TestCase
         ]);
     }
 
-    public function test_non_existing_feed()
+    public function test_non_existing_feed(): void
     {
         $resp = $this->get('/feed?url=' . urlencode('http://example.com/abc.xml'));
         $resp->assertNotFound();

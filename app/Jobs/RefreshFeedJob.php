@@ -38,7 +38,7 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
      *
      * @return void
      */
-    public function handle(FeedPostFetcher $postFetcher)
+    public function handle(FeedPostFetcher $postFetcher): void
     {
         $freshPosts = $postFetcher->fetchForFeed($this->feed);
         $loadThumbs = config('app.load_post_thumbnails', false);

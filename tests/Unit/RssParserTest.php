@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class RssParserTest extends TestCase
 {
-    public function test_it_returns_an_array()
+    public function test_it_returns_an_array(): void
     {
         $parser = new RssParser();
 
@@ -15,7 +15,7 @@ class RssParserTest extends TestCase
     }
 
 
-    public function test_it_parses_valid_posts()
+    public function test_it_parses_valid_posts(): void
     {
         $parser = new RssParser();
 
@@ -54,7 +54,7 @@ END
         $this->assertEquals('BookStack v22.06 is now here! This release was primarily refinement focused but it does include some great new features that may streamline your usage of the platform.', $posts[0]->description);
     }
 
-    public function test_it_parses_single_post()
+    public function test_it_parses_single_post(): void
     {
         $parser = new RssParser();
 
@@ -84,7 +84,7 @@ END
         $this->assertEquals('BookStack v22.06 is now here! This release was primarily refinement focused but it does include some great new features that may streamline your usage of the platform.', $posts[0]->description);
     }
 
-    public function test_it_parses_no_posts()
+    public function test_it_parses_no_posts(): void
     {
         $parser = new RssParser();
 
@@ -101,7 +101,7 @@ END
         $this->assertCount(0, $posts);
     }
 
-    public function test_invalid_posts_are_not_returned()
+    public function test_invalid_posts_are_not_returned(): void
     {
         $parser = new RssParser();
 
@@ -139,7 +139,7 @@ END
         $this->assertCount(0, $posts);
     }
 
-    public function test_descriptions_in_html_are_parsed()
+    public function test_descriptions_in_html_are_parsed(): void
     {
         $parser = new RssParser();
 
@@ -163,7 +163,7 @@ END
         $this->assertEquals('Some really cool text & with £ entities within', $posts[0]->description);
     }
 
-    public function test_it_parses_valid_atom_feeds()
+    public function test_it_parses_valid_atom_feeds(): void
     {
         $parser = new RssParser();
 
@@ -212,7 +212,7 @@ END
         $this->assertEquals("Example Post A Read the full article", $posts[0]->description);
     }
 
-    public function test_atom_summary_used_over_content()
+    public function test_atom_summary_used_over_content(): void
     {
         $parser = new RssParser();
 
@@ -240,7 +240,7 @@ END
         $this->assertEquals("Example Post A Summary", $posts[0]->description);
     }
 
-    public function test_switcher_summary_used_over_content()
+    public function test_switcher_summary_used_over_content(): void
     {
         $parser = new RssParser();
 

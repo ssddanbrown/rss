@@ -14,7 +14,7 @@ class RefreshFeedJobTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_stores_posts_for_the_given_feed()
+    public function test_it_stores_posts_for_the_given_feed(): void
     {
         $feed = Feed::factory()->create([
             'url' => 'https://example.com/feed.xml',
@@ -57,7 +57,7 @@ END)
         ]);
     }
 
-    public function test_job_is_unique_per_feed()
+    public function test_job_is_unique_per_feed(): void
     {
         $feedA = Feed::factory()->create(['url' => 'https://example.com/feed.xml']);
         $feedB = Feed::factory()->create(['url' => 'https://example-b.com/feed.xml']);

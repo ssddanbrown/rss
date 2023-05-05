@@ -26,7 +26,7 @@ class UpdateFeedsCommand extends Command
      *
      * @return int
      */
-    public function handle(ConfiguredFeedProvider $feedProvider)
+    public function handle(ConfiguredFeedProvider $feedProvider): int
     {
         $feeds = $feedProvider->getAll();
         $feeds->reloadOutdatedFeeds();

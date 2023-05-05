@@ -38,7 +38,7 @@ class FetchPostThumbnailJob implements ShouldQueue, ShouldBeUnique
      *
      * @return void
      */
-    public function handle(PostThumbnailFetcher $thumbnailFetcher)
+    public function handle(PostThumbnailFetcher $thumbnailFetcher): void
     {
         $thumbnailFetcher->fetchAndStoreForPost($this->post);
     }
