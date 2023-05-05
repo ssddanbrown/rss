@@ -262,7 +262,7 @@ php artisan rss:test-feed https://danb.me/blog/index.xml
 
 This is primarily built using the following great projects and technologies:
 
-- [Laravel](https://laravel.com/) - [MIT License](https://github.com/laravel/framework/blob/9.x/LICENSE.md)
+- [Laravel](https://laravel.com/) - [MIT License](https://github.com/laravel/framework/blob/10.x/LICENSE.md)
 - [InertiaJS](https://inertiajs.com/) - [MIT License](https://github.com/inertiajs/inertia/blob/master/LICENSE)
 - [SQLite](https://www.sqlite.org/index.html) - [Public Domain](https://www.sqlite.org/copyright.html)
 - [TailwindCSS](https://tailwindcss.com/) - [MIT License](https://github.com/tailwindlabs/tailwindcss/blob/master/LICENSE)

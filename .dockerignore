@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 /feeds.txt
+/bootstrap/cache/*
 /public/storage
 /storage/app/*
 /storage/database/*
