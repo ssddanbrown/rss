@@ -24,8 +24,6 @@ class PrunePostsCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(PostPruner $pruner): int
     {

@@ -35,8 +35,6 @@ class RefreshFeedJob implements ShouldQueue, ShouldBeUnique
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(FeedPostFetcher $postFetcher): void
     {
