@@ -9,7 +9,7 @@ class ConfiguredFeedProvider
     protected RssConfig $config;
 
     /** @var ConfiguredFeed[]  */
-    protected $feeds = [];
+    protected array $feeds = [];
 
     public function loadFromConfig(): void
     {
@@ -54,7 +54,8 @@ class ConfiguredFeedProvider
                 $this->config->getName($feedUrl),
                 $feedUrl,
                 $this->config->getColor($feedUrl),
-                $this->config->getTags($feedUrl)
+                $this->config->getTags($feedUrl),
+                $this->config->getHidden($feedUrl),
             );
 
             $configuredFeeds[] = $configured;
@@ -76,6 +77,16 @@ class ConfiguredFeedProvider
     {
         $this->updateLastAccessedForFeeds($this->feeds);
         return new ConfiguredFeedList($this->feeds);
+    }
+
+    public function getVisible()
+    {
+        $feeds = array_filter($this->feeds, function (ConfiguredFeed $feed) {
+            return !$feed->hidden;
+        });
+
+        $this->updateLastAccessedForFeeds($feeds);
+        return new ConfiguredFeedList($feeds);
     }
 
     public function get(string $feedUrl): ?ConfiguredFeed

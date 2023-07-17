@@ -2,6 +2,7 @@
 
 namespace App\Config;
 
+use ArrayIterator;
 use IteratorAggregate;
 use JsonSerializable;
 use Traversable;
@@ -50,7 +51,7 @@ class ConfiguredFeedList implements IteratorAggregate, JsonSerializable
 
     public function getIterator(): Traversable
     {
-        return $this->feeds;
+        return new ArrayIterator($this->feeds);
     }
 
     public function jsonSerialize(): mixed

@@ -52,10 +52,13 @@ https://example.com b[#000] #dog #cat
 # A comment
 https://example-C.com/cats?test=abc#okay
 
+-https://example-hidden-a.com Hidden_A #news
+- https://example-hidden-b.com/ Hidden_B
+
 http://beans.com/feed.xml#food d_is_cool #cooking
         ");
 
-        $this->assertCount(3, $config->getFeedUrls());
+        $this->assertCount(5, $config->getFeedUrls());
         $this->assertCount(0, $config->getTags('https://example-B.com/cats?test=abc#okay'));
         $this->assertEquals(['#dog', '#cat'], $config->getTags('https://example.com'));
         $this->assertEquals(['#cooking'], $config->getTags('http://beans.com/feed.xml#food'));
@@ -63,6 +66,9 @@ http://beans.com/feed.xml#food d_is_cool #cooking
         $this->assertEquals('b', $config->getName('https://example.com'));
         $this->assertEquals('#000', $config->getColor('https://example.com'));
         $this->assertEquals('d is cool', $config->getName('http://beans.com/feed.xml#food'));
+        $this->assertTrue($config->getHidden('https://example-hidden-a.com'));
+        $this->assertTrue($config->getHidden('https://example-hidden-b.com/'));
+        $this->assertFalse($config->getHidden('http://beans.com/feed.xml#food'));
     }
 
 

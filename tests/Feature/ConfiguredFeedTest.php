@@ -21,7 +21,8 @@ final class ConfiguredFeedTest extends TestCase
             'My great feed',
             'https://example.com',
             '#fff',
-            ['#a']
+            ['#a'],
+            false,
         );
 
         config()->set('app.feed_update_frequency', 60);
@@ -45,7 +46,8 @@ final class ConfiguredFeedTest extends TestCase
             'My great feed',
             'https://example.com',
             '#fff',
-            ['#a']
+            ['#a'],
+            false,
         );
         Queue::fake();
 

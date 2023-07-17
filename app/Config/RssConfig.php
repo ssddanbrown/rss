@@ -8,9 +8,9 @@ class RssConfig
      * The configured feeds.
      * Array keys are the feed URLs and values are arrays of tags as strings.
      * Tag strings include their '#' prefix.
-     * @var array<string, array{name: string, tags: string[], color: string}>
+     * @var array<string, array{name: string, tags: string[], color: string, hidden: bool}>
      */
-    protected $feeds = [];
+    protected array $feeds = [];
 
     /**
      * Get all feed URLs
@@ -24,12 +24,13 @@ class RssConfig
     /**
      * Add a new feed to the config.
      */
-    public function addFeed(string $feed, string $name, array $tags = [], string $color = ''): void
+    public function addFeed(string $feed, string $name, array $tags = [], string $color = '', bool $hidden = false): void
     {
         $this->feeds[$feed] = [
             'name' => $name,
             'tags' => $tags,
             'color' => $color,
+            'hidden' => $hidden,
         ];
     }
 
@@ -74,6 +75,14 @@ class RssConfig
     }
 
     /**
+     * Get the hidden status for the given feed.
+     */
+    public function getHidden(string $feed): bool
+    {
+        return $this->feeds[$feed]['hidden'] ?? false;
+    }
+
+    /**
      * Get the configuration as a string.
      */
     public function toString(): string
@@ -92,6 +101,10 @@ class RssConfig
                 $line .= " {$tag}";
             }
 
+            if ($details['hidden']) {
+                $line = '-' . $line;
+            }
+
             $lines[] = $line;
         }
 
@@ -107,8 +120,14 @@ class RssConfig
 
         foreach ($lines as $line) {
             $line = trim($line);
-            $parts = explode(' ', $line);
+            $hidden = false;
 
+            if (str_starts_with($line, '-')) {
+                $hidden = true;
+                $line = ltrim($line, '- ');
+            }
+
+            $parts = explode(' ', $line);
             if (empty($line) || str_starts_with($line, '#') || count($parts) < 2) {
                 continue;
             }
@@ -127,7 +146,7 @@ class RssConfig
             $tags = array_filter(array_slice($parts, 2), fn ($str) => str_starts_with($str, '#'));
 
             if (str_starts_with($url, 'http://') || str_starts_with($url, 'https://')) {
-                $this->addFeed($url, $name, $tags, $color);
+                $this->addFeed($url, $name, $tags, $color, $hidden);
             }
         }
     }

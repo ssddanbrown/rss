@@ -16,6 +16,7 @@ class ConfiguredFeed implements JsonSerializable
         public string $url,
         public string $color,
         public array $tags,
+        public bool $hidden,
     ) {
     }
 
@@ -26,6 +27,7 @@ class ConfiguredFeed implements JsonSerializable
             'color' => $this->color,
             'url' => $this->url,
             'tags' => $this->tags,
+            'hidden' => $this->hidden,
             'reloading' => $this->reloading,
             'outdated' => $this->isOutdated(),
         ];

@@ -19,10 +19,12 @@ class PostViewController extends Controller
 
     public function home(Request $request)
     {
-        $feeds = $this->feedProvider->getAll();
-        $feeds->reloadOutdatedFeeds();
+        $displayFeeds = $this->feedProvider->getAll();
+        $displayFeeds->reloadOutdatedFeeds();
 
-        return $this->renderPostsView($request, $feeds);
+        $postFeeds = $this->feedProvider->getVisible();
+
+        return $this->renderPostsView($request, $displayFeeds, $postFeeds);
     }
 
     public function tag(Request $request, string $tag)
@@ -30,7 +32,7 @@ class PostViewController extends Controller
         $feeds = $this->feedProvider->getForTag('#' . $tag);
         $feeds->reloadOutdatedFeeds();
 
-        return $this->renderPostsView($request, $feeds, ['tag' => $tag]);
+        return $this->renderPostsView($request, $feeds, $feeds, ['tag' => $tag]);
     }
 
     public function feed(Request $request, string $feed)
@@ -40,10 +42,10 @@ class PostViewController extends Controller
         $feeds = $this->feedProvider->getAsList($feed);
         $feeds->reloadOutdatedFeeds();
 
-        return $this->renderPostsView($request, $feeds, ['feed' => $feed]);
+        return $this->renderPostsView($request, $feeds, $feeds, ['feed' => $feed]);
     }
 
-    protected function renderPostsView(Request $request, ConfiguredFeedList $feeds, array $additionalData = [])
+    protected function renderPostsView(Request $request, ConfiguredFeedList $displayFeeds, ConfiguredFeedList $postFeeds, array $additionalData = [])
     {
         $page = max(intval($request->get('page')), 1);
         $query = $request->get('query', '');
@@ -57,14 +59,14 @@ class PostViewController extends Controller
         }
 
         $posts = $this->postProvider->getLatest(
-            $feeds,
+            $postFeeds,
             100,
             $page,
             $subFilter
         );
 
         $coreData = [
-            'feeds' => $feeds,
+            'feeds' => $displayFeeds,
             'posts' => $posts,
             'page' => $page,
             'search' => $query,
