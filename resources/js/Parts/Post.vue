@@ -19,8 +19,8 @@
                 <a :href="post.url" target="_blank" class="block overflow-hidden rounded my-2 border dark:border-black">
                     <img :src="`storage/${post.thumbnail}`"
                          loading="lazy"
-                         class="w-full h-32 md:h-48 lg:h-64 object-cover saturate-50"
-                         :class="{'h-16 md:h-16 lg:h-16': formatList}"
+                         class="w-full object-cover saturate-50"
+                         :class="{'h-16 md:h-16 lg:h-16': formatList, 'h-32 md:h-48 lg:h-64': !formatList}"
                          :alt="post.title">
                 </a>
             </div>
