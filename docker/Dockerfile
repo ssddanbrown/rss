@@ -1,5 +1,5 @@
 # NPM asset build
-FROM node:18
+FROM node:20
 COPY . /app
 WORKDIR /app
 RUN npm ci && npm run build
