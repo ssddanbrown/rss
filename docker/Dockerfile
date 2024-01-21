@@ -36,11 +36,9 @@ COPY --from=1 /app/vendor /app/vendor
 # Then run any app-side commands
 RUN cp docker/.env.container /app/.env && \
     cp docker/nginx.conf /etc/nginx/sites-enabled/rss.conf && \
-    cp docker/cron /etc/cron.d/rss-cron && \
     rm /etc/nginx/sites-enabled/default && \
     chmod +x /app/docker/run.sh && \
-    chmod 0644 /etc/cron.d/rss-cron && \
-    crontab /etc/cron.d/rss-cron && \
+    crontab -u www-data /app/docker/cron && \
     php artisan key:generate && \
     php artisan route:cache
 
