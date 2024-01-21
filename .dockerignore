@@ -9,3 +9,5 @@
 /storage/logs/*
 /.github
 /.idea
+/.*.cache
+/test-files

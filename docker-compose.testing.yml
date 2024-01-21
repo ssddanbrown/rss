@@ -1,0 +1,22 @@
+---
+
+# WARNING
+# This file is for development testing only.
+# Refer to the readme for an example that you might want to use
+# for running the application in actual usage.
+
+version: "2"
+services:
+  rss:
+    container_name: rss_dev
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    environment:
+      - APP_NAME=RSS
+      - APP_FEED_UPDATE_FREQUENCY=5
+    volumes:
+      - ./test-files:/app/storage
+    ports:
+      - "8080:80"
+    restart: unless-stopped
