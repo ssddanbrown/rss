@@ -1,4 +1,8 @@
 <template>
+    <div class="bg-black text-white text-sm p-1 text-center">
+        This project has moved! Please use the <code class="font-mono text-pink-400">codeberg.org/danb/rss:latest</code> docker image instead.
+        <a href="https://codeberg.org/danb/rss" target="_blank" class="underline">Project on Codeberg</a>
+    </div>
     <div class="md:flex h-full min-h-0">
         <div class="md:w-1/3 xl:w-1/4 md:flex md:justify-end md:border-r dark:border-black px-6 bg-gray-50 dark:bg-gray-800 md:px-12 md:overflow-auto py-3">
             <div class="md:hidden mb-2">
